@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { robotApi, RobotStatus } from '../services/robotApi';
 
 interface RobotLog {
@@ -162,8 +163,8 @@ const RobotIntelligenceCenter: React.FC = () => {
         </div>
       </div>
 
-      {/* Compliance Center Detail Panel */}
-      {isPanelOpen && (
+      {/* Compliance Center Detail Panel — renderowany przez Portal w body, żeby uciec z kontekstu sticky */}
+      {isPanelOpen && createPortal(
         <div className="fixed inset-0 bg-black/60 z-[300] flex items-center justify-center p-4 animate-in fade-in duration-150">
           <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
             {/* Panel header */}
@@ -258,7 +259,8 @@ const RobotIntelligenceCenter: React.FC = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
