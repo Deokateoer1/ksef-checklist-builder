@@ -1,6 +1,8 @@
 
-// Zaktualizowano port zgodnie z konfiguracją użytkownika (Port 8000)
-const ROBOT_API_BASE = 'http://localhost:8000';
+// URL backendu — ustaw VITE_ROBOT_API_URL w pliku .env dla produkcji
+// Lokalnie: http://localhost:8000
+// Hetzner:  https://api.twojadomena.pl  (lub http://HETZNER_IP:8000)
+const ROBOT_API_BASE: string = import.meta.env.VITE_ROBOT_API_URL ?? 'http://localhost:8000';
 
 export interface RobotStatus {
   status: 'online' | 'offline' | 'error';
@@ -25,7 +27,7 @@ async function fetchWithRetry(url: string, options: RequestInit = {}, retries = 
     return res;
   } catch (error) {
     if (retries > 0) {
-      console.warn(`[RobotAPI] Brak połączenia z http://localhost:8000. Ponawiam...`);
+      console.warn(`[RobotAPI] Brak połączenia z ${ROBOT_API_BASE}. Ponawiam...`);
       await wait(backoff);
       return fetchWithRetry(url, options, retries - 1, backoff * 2);
     }

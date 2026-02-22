@@ -29,3 +29,9 @@ dist-ssr
 # Temp scripts
 temp_*.py
 *.temp.*
+
+# Env files (nie commituj produkcyjnych sekretów)
+.env
+.env.local
+.env.production.local
+# .env.production zostawiamy — nie zawiera sekretów, tylko URL
