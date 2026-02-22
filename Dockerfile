@@ -18,6 +18,10 @@ COPY . .
 ARG VITE_ROBOT_API_URL=http://localhost:8000
 ENV VITE_ROBOT_API_URL=$VITE_ROBOT_API_URL
 
+# Klucz Gemini API (wymagany przez geminiService.ts)
+ARG GEMINI_API_KEY
+ENV GEMINI_API_KEY=$GEMINI_API_KEY
+
 # Build produkcyjny — bundle trafia do /app/dist
 RUN npm run build
 
