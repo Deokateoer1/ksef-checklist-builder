@@ -1,0 +1,628 @@
+
+import { FAQ_GENERATED_KSEF } from './faqGeneratedKSeF';
+
+export type FAQAudience = 'ksiegowy' | 'IT' | 'menedzer' | 'audytor' | 'wszyscy';
+export type FAQDifficulty = 'beginner' | 'intermediate' | 'advanced' | 'expert';
+export type FAQSource = 'gov.pl' | 'mf.gov.pl' | 'praktyka' | 'ustawa_vat' | 'specyfikacja_fa3' | 'internal' | 'rozporzadzenie_mf';
+
+export interface FAQItem {
+  id: string;
+  phase: number;
+  category: string;
+  question: string;
+  answer: string;
+  tags: string[];
+  difficulty: FAQDifficulty;
+  audience: FAQAudience;
+  relatedTopics: string[];
+  source: string;
+}
+
+export const FAQ_DATABASE: FAQItem[] = [
+  // --- ISTNIEJĄCE WPISY (CORE) ---
+  {
+    id: "FAQ_0_001",
+    phase: 0,
+    category: "Przygotowanie",
+    question: "Od czego zacząć wdrożenie KSeF w dużej organizacji?",
+    answer: "Krok 1: Powołaj zespół interdyscyplinarny (Księgowość, IT, Prawny, Logistyka). Krok 2: Przeprowadź inwentaryzację wszystkich miejsc powstawania faktur (ERP, WMS, e-commerce, billingi). Krok 3: Zweryfikuj czystość bazy kontrahentów (NIP/Biała Lista). Krok 4: Ustal harmonogram dostosowania systemów do FA(3).",
+    tags: ["start", "zespół", "audyt", "mapowanie"],
+    difficulty: "intermediate",
+    audience: "menedzer",
+    relatedTopics: ["FAQ_0_002"],
+    source: "praktyka"
+  },
+  {
+    id: "FAQ_0_002",
+    phase: 0,
+    category: "Przygotowanie",
+    question: "Czy faktury B2C (konsumenckie) wchodzą do KSeF?",
+    answer: "NIE. Zgodnie z przepisami, faktury wystawiane na rzecz osób fizycznych nieprowadzących działalności gospodarczej są wyłączone z KSeF. Należy je wystawiać w dotychczasowej formie (papier/PDF) i nie przesyłać do systemu MF. Wysłanie B2C do KSeF może naruszać RODO.",
+    tags: ["b2c", "konsument", "wyłączenia", "rodo"],
+    difficulty: "beginner",
+    audience: "ksiegowy",
+    relatedTopics: ["FAQ_1_005"],
+    source: "ustawa_vat"
+  },
+  {
+    id: "FAQ_1_001",
+    phase: 1,
+    category: "Compliance",
+    question: "Jak długo należy przechowywać faktury XML?",
+    answer: "Faktury ustrukturyzowane są przechowywane w KSeF przez 10 lat, licząc od końca roku, w którym zostały wystawione. Po tym okresie podatnik ma obowiązek pobrania ich i archiwizacji we własnym zakresie do momentu przedawnienia zobowiązania podatkowego.",
+    tags: ["retencja", "archiwizacja", "10 lat", "przedawnienie"],
+    difficulty: "intermediate",
+    audience: "audytor",
+    relatedTopics: ["FAQ_9_001"],
+    source: "mf.gov.pl"
+  },
+  {
+    id: "FAQ_1_002",
+    phase: 1,
+    category: "Compliance",
+    question: "Co z RODO w fakturach KSeF?",
+    answer: "KSeF przetwarza dane osobowe zawarte w fakturach. Należy zaktualizować klauzule informacyjne dla kontrahentów i pracowników. Unikaj wpisywania danych wrażliwych (np. procedury medyczne, nazwiska pacjentów) w polu opisu towaru/usługi (P_7) - te dane stają się publiczne dla uprawnionych organów.",
+    tags: ["rodo", "dane osobowe", "prywatność", "p_7"],
+    difficulty: "advanced",
+    audience: "audytor",
+    relatedTopics: ["FAQ_0_002"],
+    source: "praktyka"
+  },
+  {
+    id: "FAQ_2_001",
+    phase: 2,
+    category: "Analiza",
+    question: "Jak walidować NIP przed wysyłką do KSeF?",
+    answer: "System KSeF weryfikuje istnienie NIP w bazie. Przed wysyłką sprawdź NIP w Wykazie Podatników VAT (Biała Lista) oraz bazie VIES (dla UE). Błędny NIP spowoduje odrzucenie faktury (status 400/422). Robot Zwiadowca może to robić automatycznie przed próbą wysyłki.",
+    tags: ["nip", "walidacja", "biała lista", "vies"],
+    difficulty: "intermediate",
+    audience: "IT",
+    relatedTopics: ["FAQ_4_001"],
+    source: "specyfikacja_fa3"
+  },
+  {
+    id: "FAQ_3_001",
+    phase: 3,
+    category: "Techniczne",
+    question: "Co to jest Moduł Certyfikatów i Uprawnień (MCU)?",
+    answer: "MCU to komponent KSeF uruchomiony w listopadzie 2025 r. służący do zarządzania dostępami. Pozwala na nadawanie uprawnień (np. tylko do wystawiania, tylko do podglądu) innym podmiotom lub pracownikom bez konieczności udostępniania im głównego Certyfikatu Kwalifikowanego.",
+    tags: ["mcu", "uprawnienia", "certyfikaty", "dostęp"],
+    difficulty: "advanced",
+    audience: "IT",
+    relatedTopics: ["FAQ_3_002"],
+    source: "mf.gov.pl"
+  },
+  {
+    id: "FAQ_3_002",
+    phase: 3,
+    category: "Techniczne",
+    question: "Czym się różni Token od Pieczęci Kwalifikowanej?",
+    answer: "Pieczęć Kwalifikowana służy do 'twardego' uwierzytelniania i nadawania uprawnień w KSeF (zwykle używana przez Zarząd). Token (API Key) to ciąg znaków generowany w systemie, używany przez oprogramowanie (np. ERP, Robot) do codziennej, masowej wysyłki faktur. Token nie wymaga fizycznego czytnika kart.",
+    tags: ["token", "pieczęć", "autoryzacja", "jwt"],
+    difficulty: "intermediate",
+    audience: "IT",
+    relatedTopics: ["FAQ_3_003"],
+    source: "specyfikacja_fa3"
+  },
+  {
+    id: "FAQ_3_003",
+    phase: 3,
+    category: "Techniczne",
+    question: "Dlaczego Robot używa portu 8000?",
+    answer: "Robot Zwiadowca nasłuchuje na porcie 8000 (localhost:8000), aby odbierać polecenia z przeglądarki (Dashboardu) i bezpiecznie komunikować się z API Ministerstwa Finansów, omijając ograniczenia CORS przeglądarki.",
+    tags: ["port", "8000", "http", "bezpieczeństwo"],
+    difficulty: "advanced",
+    audience: "IT",
+    relatedTopics: [],
+    source: "praktyka"
+  },
+  {
+    id: "FAQ_4_001",
+    phase: 4,
+    category: "Obsługa Błędów",
+    question: "Co oznacza błąd 21133: 'Niezgodność ze schemą'?",
+    answer: "To najczęstszy błąd walidacji semantycznej. Oznacza, że struktura XML jest poprawna składniowo, ale dane nie spełniają reguł biznesowych (np. ujemna kwota w polu, które nie przyjmuje minusów, błędny format daty, niedozwolone znaki w P_7). Należy przeanalizować sekcję <ValidationResult> w odpowiedzi.",
+    tags: ["21133", "błąd", "walidacja", "schema"],
+    difficulty: "advanced",
+    audience: "IT",
+    relatedTopics: ["FAQ_4_002"],
+    source: "specyfikacja_fa3"
+  },
+  {
+    id: "FAQ_4_002",
+    phase: 4,
+    category: "Obsługa Błędów",
+    question: "Co robić przy błędzie 429: 'Too Many Requests'?",
+    answer: "System MF nałożył limit zapytań (Rate Limit). Należy wstrzymać wysyłkę i zastosować algorytm 'Exponential Backoff' (odczekaj 1s, potem 2s, 4s, 8s...). Nie ponawiaj żądań natychmiast, bo wydłuży to blokadę. Robot Zwiadowca obsługuje to automatycznie.",
+    tags: ["429", "rate limit", "limit zapytań", "backoff"],
+    difficulty: "advanced",
+    audience: "IT",
+    relatedTopics: [],
+    source: "praktyka"
+  },
+  {
+    id: "FAQ_4_003",
+    phase: 4,
+    category: "Obsługa Błędów",
+    question: "Błąd 21132: 'Brak uprawnień'. Co robić?",
+    answer: "Token lub certyfikat użyty do autoryzacji nie ma prawa do wystawiania faktur dla danego NIP. Sprawdź w MCU czy uprawnienia nie wygasły lub czy token został wygenerowany dla właściwego kontekstu (NIP podatnika vs NIP biura).",
+    tags: ["21132", "uprawnienia", "autoryzacja", "mcu"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: ["FAQ_3_001"],
+    source: "mf.gov.pl"
+  },
+  {
+    id: "FAQ_5_001",
+    phase: 5,
+    category: "Testy",
+    question: "Jaka jest różnica między środowiskiem Demo a Test?",
+    answer: "Środowisko TEST (ksef-test.mf.gov.pl) bywa niestabilne i często czyszczone. Środowisko DEMO (ksef-demo.mf.gov.pl) jest bardziej stabilne i zalecane do testów integracyjnych oraz szkolenia pracowników. Żadne faktury wystawione w Demo/Test nie wywołują skutków prawnych.",
+    tags: ["demo", "test", "środowisko", "szkolenie"],
+    difficulty: "beginner",
+    audience: "wszyscy",
+    relatedTopics: [],
+    source: "gov.pl"
+  },
+  {
+    id: "FAQ_6_001",
+    phase: 6,
+    category: "Tryb Awaryjny",
+    question: "Co to jest procedura Offline24?",
+    answer: "Gdy KSeF jest niedostępny (awaria) lub podatnik nie ma internetu, fakturę wystawia się w ERP lokalnie. Musi ona zawierać kod QR (wg specyfikacji ISO 8583). Taką fakturę trzeba przesłać do KSeF w ciągu 24 godzin od ustania awarii (lub w następny dzień roboczy w przypadku awarii po stronie MF).",
+    tags: ["offline", "awaria", "qr", "24h"],
+    difficulty: "advanced",
+    audience: "ksiegowy",
+    relatedTopics: ["FAQ_6_002"],
+    source: "ustawa_vat"
+  },
+  {
+    id: "FAQ_6_002",
+    phase: 6,
+    category: "Tryb Awaryjny",
+    question: "Jak wygenerować kod QR dla faktury Offline?",
+    answer: "Kod QR musi zawierać: skrót SHA-256 z pliku XML faktury oraz identyfikator certyfikatu (lub klucza publicznego), którym faktura zostanie podpisana przed wysyłką. Bez podpisu kwalifikowanego nie można bezpiecznie wystawiać faktur offline.",
+    tags: ["qr", "sha-256", "podpis", "offline"],
+    difficulty: "advanced",
+    audience: "IT",
+    relatedTopics: [],
+    source: "specyfikacja_fa3"
+  },
+  {
+    id: "FAQ_7_001",
+    phase: 7,
+    category: "Wdrożenie",
+    question: "Co to jest 'UPO Write-Back'?",
+    answer: "To kluczowy proces wdrożeniowy: po wysłaniu faktury do KSeF i otrzymaniu numeru KSeF (oraz UPO), system ERP musi trwale zapisać ten numer przy fakturze w bazie danych. Bez numeru KSeF faktura nie jest uznana za wprowadzoną do obrotu prawnego.",
+    tags: ["upo", "write-back", "erp", "numer ksef"],
+    difficulty: "intermediate",
+    audience: "IT",
+    relatedTopics: [],
+    source: "praktyka"
+  },
+  {
+    id: "FAQ_8_001",
+    phase: 8,
+    category: "Monitoring",
+    question: "Jakie są nowe pola w strukturze FA(3)?",
+    answer: "FA(3) wprowadza m.in.: węzeł <Podmiot3> (dla faktora/odbiorcy płatności), rozbudowaną sekcję <Platnosci> (terminy, skonto), nowe kody GTU oraz obowiązkowe pola dla procedur specjalnych (np. Procedura OSS).",
+    tags: ["fa3", "schema", "xml", "zmiany"],
+    difficulty: "advanced",
+    audience: "IT",
+    relatedTopics: [],
+    source: "specyfikacja_fa3"
+  },
+  {
+    id: "FAQ_8_002",
+    phase: 8,
+    category: "Monitoring",
+    question: "Jak obsługiwać Split Payment (MPP) w KSeF?",
+    answer: "W strukturze FA(3) pole MPP (Mechanizm Podzielonej Płatności) jest opcjonalne, ale jeśli transakcja tego wymaga, należy ustawić flagę MPP=1. Po wysłaniu, KSeF zwraca numer referencyjny, który (choć nie jest 'identyfikatorem zbiorczym' w sensie bankowym) ułatwia parowanie płatności.",
+    tags: ["split payment", "mpp", "płatności", "fa3"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "ustawa_vat"
+  },
+  {
+    id: "FAQ_9_001",
+    phase: 9,
+    category: "Koszty",
+    question: "Czy korzystanie z KSeF jest płatne?",
+    answer: "Samo korzystanie z API KSeF jest bezpłatne. Koszty generują: dostosowanie systemu ERP, zakup kwalifikowanych pieczęci elektronicznych (ok. 300-600 zł/rok), archiwizacja danych (serwery) oraz ewentualne usługi integratora (Robot Zwiadowca).",
+    tags: ["koszty", "budżet", "pieczęć", "darmowy"],
+    difficulty: "beginner",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "gov.pl"
+  },
+  {
+    id: "FAQ_10_001",
+    phase: 10,
+    category: "Ryzyko KKS",
+    question: "Jaka jest kara za niewystawienie faktury w KSeF?",
+    answer: "Od 1 stycznia 2027 r. kara wynosi do 100% kwoty podatku wykazanego na fakturze (lub do 18,7% kwoty należności, jeśli faktura bez VAT). Kary nakłada Naczelnik Urzędu Skarbowego w drodze decyzji.",
+    tags: ["kary", "kks", "sankcje", "100%"],
+    difficulty: "intermediate",
+    audience: "menedzer",
+    relatedTopics: ["FAQ_1_001"],
+    source: "ustawa_vat"
+  },
+  {
+    id: "FAQ_10_002",
+    phase: 10,
+    category: "Ryzyko KKS",
+    question: "Kto odpowiada za awarię wysyłki: IT czy Zarząd?",
+    answer: "Odpowiedzialność karno-skarbowa spoczywa na Podatniku (Zarządzie). Jednak wewnątrz firmy, jeśli awaria wynika z zaniedbań technicznych (np. wygasły token, brak monitoringu 429), odpowiedzialność pracownicza może spaść na dział IT. Dlatego ważny jest 'War Room' i procedury.",
+    tags: ["odpowiedzialność", "zarząd", "it", "kks"],
+    difficulty: "advanced",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "praktyka"
+  },
+  {
+    id: "FAQ_11_001",
+    phase: 2,
+    category: "Analiza",
+    question: "Jak wystawić fakturę walutową?",
+    answer: "W polu KodWaluty wpisujemy np. EUR. Kurs waluty (i data kursu) podajemy w dedykowanych polach. UWAGA: Kwoty podatku VAT muszą być przeliczone na PLN i wykazane w sekcji podsumowania w złotówkach, nawet jeśli faktura jest w walucie obcej.",
+    tags: ["waluta", "eur", "kurs", "vat"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "ustawa_vat"
+  },
+  {
+    id: "FAQ_11_002",
+    phase: 4,
+    category: "Obsługa Błędów",
+    question: "Czy w KSeF można anulować fakturę?",
+    answer: "NIE. System KSeF nie posiada funkcji 'Delete' ani 'Anuluj'. Jeśli wysłałeś błędną fakturę (i otrzymała numer KSeF), jedynym sposobem jej wycofania jest wystawienie faktury korygującej 'do zera' (korekta całkowita).",
+    tags: ["anulowanie", "korekta", "delete", "błąd"],
+    difficulty: "beginner",
+    audience: "wszyscy",
+    relatedTopics: [],
+    source: "mf.gov.pl"
+  },
+  {
+    id: "FAQ_11_003",
+    phase: 2,
+    category: "Analiza",
+    question: "Faktury RR (Rolnik Ryczałtowy) w KSeF?",
+    answer: "Tak, nabywca produktów rolnych (podatnik VAT) może wystawiać faktury VAT RR w KSeF w imieniu rolnika. Wymaga to jednak oświadczenia rolnika. Struktura FA(3) posiada dedykowane pola dla RR.",
+    tags: ["rr", "rolnik", "ryczałt", "samofakturowanie"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "specyfikacja_fa3"
+  },
+
+  // --- NOWE WPISY (ROZSZERZENIE Z JSON) ---
+  {
+    id: "FAQ_EXT_001",
+    phase: 0,
+    category: "Terminy obowiązywania",
+    question: "Od kiedy KSeF będzie obowiązkowy dla dużych firm, a od kiedy dla pozostałych przedsiębiorców?",
+    answer: "Duże firmy (>200 mln zł obrotu w 2024 r.) od 1.02.2026, pozostali podatnicy VAT od 1.04.2026, najmniejsze podmioty od 1.01.2027. Źródło: Rozporządzenie MF z 7.12.2025, praktyka.",
+    tags: ["terminy", "harmonogram", "obowiązek", "duże firmy", "MŚP", "KSeF"],
+    difficulty: "beginner",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_002",
+    phase: 2,
+    category: "Analiza i Wyłączenia",
+    question: "Jakie są kryteria wyłączenia z obowiązku KSeF w 2026 roku?",
+    answer: "Wyłączenie dotyczy m.in. sprzedaży poniżej 10 tys. zł miesięcznie, usług autostradowych, biletów, usług finansowych zwolnionych z VAT.",
+    tags: ["wyłączenia", "KSeF", "faktury uproszczone", "bilety", "usługi finansowe"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: ["FAQ_EXT_010"],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_003",
+    phase: 0,
+    category: "Przygotowanie",
+    question: "Czy okres przejściowy w 2026 r. obejmuje zwolnienie z kar za błędy w KSeF?",
+    answer: "Tak, do końca 2026 r. nie będą nakładane kary za błędy w KSeF, okres przejściowy ma charakter edukacyjny. Źródło: MF, praktyka.",
+    tags: ["okres przejściowy", "kary", "KSeF", "błędy", "MF"],
+    difficulty: "beginner",
+    audience: "menedzer",
+    relatedTopics: ["FAQ_EXT_006"],
+    source: "Interpretacja MF"
+  },
+  {
+    id: "FAQ_EXT_004",
+    phase: 2,
+    category: "Analiza",
+    question: "Jakie są terminy wdrożenia KSeF dla e-commerce i usług cyfrowych?",
+    answer: "Terminy są takie same jak dla ogółu: 1.02.2026 dla dużych, 1.04.2026 dla pozostałych, 1.01.2027 dla najmniejszych.",
+    tags: ["e-commerce", "usługi cyfrowe", "harmonogram", "KSeF", "terminy"],
+    difficulty: "beginner",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_005",
+    phase: 10,
+    category: "Ryzyko KKS",
+    question: "Jakie kary grożą za niewystawienie faktury w KSeF po 1.01.2027?",
+    answer: "Kara do 100% VAT z faktury lub do 18,7% wartości należności przy braku VAT. Źródło: Ustawa o VAT, interpretacja MF.",
+    tags: ["kary", "sankcje", "KSeF", "VAT", "niewystawienie"],
+    difficulty: "intermediate",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "Ustawa o VAT"
+  },
+  {
+    id: "FAQ_EXT_006",
+    phase: 10,
+    category: "Ryzyko KKS",
+    question: "Czy w 2026 roku będą nakładane kary za błędy techniczne w KSeF?",
+    answer: "Nie, w 2026 r. obowiązuje okres przejściowy bez kar za błędy techniczne, pod warunkiem dokumentowania działań wdrożeniowych.",
+    tags: ["okres przejściowy", "kary", "błędy techniczne", "KSeF"],
+    difficulty: "beginner",
+    audience: "menedzer",
+    relatedTopics: ["FAQ_EXT_003"],
+    source: "Interpretacja MF"
+  },
+  {
+    id: "FAQ_EXT_007",
+    phase: 10,
+    category: "Ryzyko KKS",
+    question: "Jakie są warunki łagodzenia kar za niedopełnienie obowiązków KSeF?",
+    answer: "Możliwe obniżenie kar, jeśli podatnik wykaże działania wdrożeniowe lub napotkał trudności techniczne. Dokumentacja awarii jest kluczowa.",
+    tags: ["łagodzenie kar", "KSeF", "wdrożenie", "trudności techniczne"],
+    difficulty: "intermediate",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "Interpretacja MF"
+  },
+  {
+    id: "FAQ_EXT_008",
+    phase: 1,
+    category: "Compliance",
+    question: "Czy biuro rachunkowe może ponosić sankcje za błędy w KSeF klienta?",
+    answer: "Tak, brak upoważnienia lub błędne wystawienie faktur przez biuro rachunkowe może skutkować sankcjami dla obu stron. Wymagana umowa o powierzenie danych.",
+    tags: ["biuro rachunkowe", "odpowiedzialność", "sankcje", "KSeF"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: ["FAQ_EXT_023"],
+    source: "Ustawa o VAT"
+  },
+  {
+    id: "FAQ_EXT_009",
+    phase: 8,
+    category: "Monitoring",
+    question: "Czy za błędnie wypełniony JPK_VAT z deklaracją grożą automatyczne kary?",
+    answer: "Nie, kary są nakładane dopiero po wezwaniu do korekty i jej braku. Ważna jest spójność JPK z KSeF.",
+    tags: ["JPK_VAT", "kary", "korekta", "KSeF", "MF"],
+    difficulty: "beginner",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Ustawa o VAT"
+  },
+  {
+    id: "FAQ_EXT_010",
+    phase: 2,
+    category: "Zwolnienia",
+    question: "Jakie transakcje są wyłączone z obowiązku wystawiania faktur w KSeF?",
+    answer: "Wyłączone są m.in. bilety jednorazowe, usługi autostradowe, usługi finansowe zwolnione z VAT, samofakturowanie przez podmioty zagraniczne bez NIP.",
+    tags: ["wyłączenia", "transakcje", "KSeF", "bilety", "samofakturowanie"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: ["FAQ_EXT_002"],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_011",
+    phase: 2,
+    category: "Zwolnienia",
+    question: "Czy faktury uproszczone do 450 zł muszą być wystawiane w KSeF?",
+    answer: "Nie, faktury uproszczone (paragon z NIP do 450 zł) nie podlegają obowiązkowi KSeF do końca 2026 r.",
+    tags: ["faktura uproszczona", "paragon z NIP", "KSeF", "wyłączenie"],
+    difficulty: "beginner",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_012",
+    phase: 2,
+    category: "Zwolnienia",
+    question: "Czy sprzedaż na rzecz konsumentów podlega obowiązkowi KSeF?",
+    answer: "Nie, faktury dla konsumentów (B2C) mogą być wystawiane poza KSeF, obowiązek dotyczy wyłącznie B2B.",
+    tags: ["konsument", "B2C", "KSeF", "wyłączenie", "faktura"],
+    difficulty: "beginner",
+    audience: "ksiegowy",
+    relatedTopics: ["FAQ_0_002"],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_013",
+    phase: 2,
+    category: "Zwolnienia",
+    question: "Czy usługi finansowe i ubezpieczeniowe zwolnione z VAT muszą być fakturowane w KSeF?",
+    answer: "Nie, są wyłączone z obowiązku KSeF, jeśli dokumentowane fakturami uproszczonymi o węższym zakresie danych.",
+    tags: ["usługi finansowe", "ubezpieczenia", "zwolnienie z VAT", "KSeF"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_014",
+    phase: 8,
+    category: "JPK_VAT vs KSeF",
+    question: "Czy numer KSeF będzie obowiązkowy w JPK_VAT od 2026 roku?",
+    answer: "Tak, od 1.02.2026 r. numer KSeF jest obowiązkowy w ewidencji JPK_VAT dla każdej faktury wystawionej w KSeF.",
+    tags: ["JPK_VAT", "numer KSeF", "ewidencja", "obowiązek"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_015",
+    phase: 8,
+    category: "JPK_VAT vs KSeF",
+    question: "Jakie nowe oznaczenia pojawią się w JPK_VAT od 2026 roku?",
+    answer: "Wprowadzone zostaną oznaczenia: OFF (awaria/offline), BFK (faktury bez KSeF), DI (dokument inny niż faktura).",
+    tags: ["JPK_VAT", "oznaczenia", "OFF", "BFK", "DI", "KSeF"],
+    difficulty: "advanced",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_016",
+    phase: 6,
+    category: "Tryb Awaryjny",
+    question: "Czy faktury wystawione w trybie offline24 muszą być później uzupełnione w JPK_VAT o numer KSeF?",
+    answer: "Tak, po nadaniu numeru KSeF dla faktur offline24 należy skorygować ewidencję JPK_VAT lub uzupełnić numer przed wysłaniem pliku.",
+    tags: ["offline24", "JPK_VAT", "numer KSeF", "korekta"],
+    difficulty: "advanced",
+    audience: "ksiegowy",
+    relatedTopics: ["FAQ_6_001"],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_017",
+    phase: 8,
+    category: "JPK_VAT vs KSeF",
+    question: "Czy w JPK_VAT należy wykazywać numer KSeF po stronie zakupowej?",
+    answer: "Tak, od 2026 r. nabywca musi wykazywać numer KSeF faktury zakupowej w JPK_VAT, jeśli dokument został zarejestrowany w systemie.",
+    tags: ["JPK_VAT", "zakupy", "numer KSeF", "nabywca"],
+    difficulty: "intermediate",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_018",
+    phase: 2,
+    category: "Analiza",
+    question: "Jak raportować faktury dokumentujące system kaucyjny w JPK_VAT?",
+    answer: "W JPK_VAT należy wykazać podstawę opodatkowania i VAT od niezwróconej kaucji, z oznaczeniem 'SYSTEM KAUCYJNY'.",
+    tags: ["system kaucyjny", "JPK_VAT", "KSeF", "kaucja"],
+    difficulty: "advanced",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_019",
+    phase: 1,
+    category: "Odpowiedzialność",
+    question: "Kto ponosi odpowiedzialność za prawidłowe wdrożenie KSeF w firmie?",
+    answer: "Odpowiedzialność karno-skarbowa spoczywa na Zarządzie, który musi zapewnić zgodność z przepisami, wdrożenie procedur i nadzór nad uprawnieniami.",
+    tags: ["odpowiedzialność", "zarząd", "wdrożenie", "KSeF"],
+    difficulty: "intermediate",
+    audience: "menedzer",
+    relatedTopics: ["FAQ_10_002"],
+    source: "Ordynacja podatkowa"
+  },
+  {
+    id: "FAQ_EXT_020",
+    phase: 1,
+    category: "Odpowiedzialność",
+    question: "Czy zarząd odpowiada za błędy pracowników w systemie KSeF?",
+    answer: "Tak, zarząd odpowiada za działania pracowników, jeśli nie wdrożył skutecznych procedur i kontroli wewnętrznej (należyta staranność).",
+    tags: ["zarząd", "pracownicy", "odpowiedzialność", "KSeF"],
+    difficulty: "intermediate",
+    audience: "menedzer",
+    relatedTopics: ["FAQ_EXT_019"],
+    source: "Ordynacja podatkowa"
+  },
+  {
+    id: "FAQ_EXT_021",
+    phase: 10,
+    category: "Ryzyko KKS",
+    question: "Jak zarząd może zabezpieczyć się przed odpowiedzialnością za błędy w KSeF?",
+    answer: "Poprzez audyt gotowości, wdrożenie pisemnych procedur, szkolenia, nadzór nad uprawnieniami i dokumentowanie działań prewencyjnych.",
+    tags: ["zarząd", "zabezpieczenie", "audyt", "procedury", "KSeF"],
+    difficulty: "advanced",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "Praktyka"
+  },
+  {
+    id: "FAQ_EXT_022",
+    phase: 10,
+    category: "Ryzyko KKS",
+    question: "Czy odpowiedzialność za błędne wystawienie faktury w KSeF może być ograniczona?",
+    answer: "Tak, jeśli zarząd wykaże, że błąd wynikał z siły wyższej lub błędu systemu MF, a nie z zaniedbania.",
+    tags: ["odpowiedzialność", "błędy", "zarząd", "procedury", "KSeF"],
+    difficulty: "intermediate",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "TSUE"
+  },
+  {
+    id: "FAQ_EXT_023",
+    phase: 1,
+    category: "Compliance",
+    question: "Jak prawidłowo upoważnić biuro rachunkowe do obsługi KSeF?",
+    answer: "Poprzez złożenie zawiadomienia ZAW-FA w Urzędzie Skarbowym (dla pierwszej osoby) lub elektronicznie w systemie KSeF (dla kolejnych).",
+    tags: ["biuro rachunkowe", "upoważnienie", "ZAW-FA", "KSeF"],
+    difficulty: "beginner",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_024",
+    phase: 1,
+    category: "Compliance",
+    question: "Czy można upoważnić więcej niż jedną osobę do obsługi KSeF przez ZAW-FA?",
+    answer: "Tak, ale każde papierowe upoważnienie wymaga osobnego formularza ZAW-FA. Zaleca się nadawanie uprawnień elektronicznie po pierwszym logowaniu.",
+    tags: ["ZAW-FA", "uprawnienia", "biuro rachunkowe", "KSeF"],
+    difficulty: "beginner",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_025",
+    phase: 1,
+    category: "Compliance",
+    question: "Jakie są konsekwencje braku upoważnienia biura rachunkowego do KSeF?",
+    answer: "Brak upoważnienia uniemożliwia legalną obsługę faktur w KSeF i może skutkować sankcjami podatkowymi oraz paraliżem decyzyjnym.",
+    tags: ["biuro rachunkowe", "upoważnienie", "sankcje", "KSeF"],
+    difficulty: "intermediate",
+    audience: "menedzer",
+    relatedTopics: [],
+    source: "Ustawa o VAT"
+  },
+  {
+    id: "FAQ_EXT_026",
+    phase: 1,
+    category: "Compliance",
+    question: "Jakie dane należy podać w ZAW-FA, aby upoważnić biuro rachunkowe?",
+    answer: "Dane podatnika, dane osoby uprawnionej (PESEL/NIP), adres e-mail, zakres uprawnień oraz podpis osoby reprezentującej podmiot.",
+    tags: ["ZAW-FA", "dane", "upoważnienie", "biuro rachunkowe"],
+    difficulty: "beginner",
+    audience: "ksiegowy",
+    relatedTopics: [],
+    source: "Rozporządzenie MF"
+  },
+  {
+    id: "FAQ_EXT_027",
+    phase: 1,
+    category: "Compliance",
+    question: "Jak długo faktury będą przechowywane w KSeF?",
+    answer: "Faktury w KSeF są przechowywane przez 10 lat od końca roku, w którym zostały wystawione. Po tym czasie należy je zarchiwizować we własnym zakresie.",
+    tags: ["przechowywanie", "archiwizacja", "KSeF", "10 lat"],
+    difficulty: "beginner",
+    audience: "wszyscy",
+    relatedTopics: ["FAQ_1_001"],
+    source: "Rozporządzenie MF"
+  },
+
+  // --- WYGENEROWANE Z OFICJALNYCH DOKUMENTÓW MF (2546 wpisów z Gemini AI) ---
+  ...FAQ_GENERATED_KSEF,
+];
