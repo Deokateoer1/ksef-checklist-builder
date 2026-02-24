@@ -13,15 +13,38 @@ interface FAQChatbotProps {
   onClose: () => void;
 }
 
+const INITIAL_MESSAGE: Message = {
+  role: 'bot',
+  text: 'Witaj w Centrum Dowodzenia KSeF 2.0. \n\nDziałam w trybie Offline (Baza Wiedzy), ale możesz mnie przełączyć w tryb AI Deep Research, aby analizować błędy techniczne.'
+};
+
+const SUGGESTED_QUESTIONS = [
+  'Kiedy KSeF obowiązkowy?',
+  'Co oznacza błąd 21133?',
+  'Faktury B2C w KSeF?',
+  'Jak długo przechowywać XML?',
+  'Tryb awaryjny Offline24',
+  'GTU_07 — co to?',
+];
+
+const renderText = (text: string): React.ReactNode => {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+};
+
 const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
   const { profile } = useChecklist();
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'bot', text: 'Witaj w Centrum Dowodzenia KSeF 2.0. \n\nDziałam w trybie Offline (Baza Wiedzy), ale możesz mnie przełączyć w tryb AI Deep Research, aby analizować błędy techniczne.' }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState('');
   const [isDeepSearch, setIsDeepSearch] = useState(false);
   const [aiMode, setAiMode] = useState<'technical' | 'business'>('technical');
   const [isTyping, setIsTyping] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -32,37 +55,58 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSend = async (e?: React.FormEvent) => {
-    e?.preventDefault();
-    if (!input.trim() || isTyping) return;
+  // ESC key closes the chatbot
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
-    const userMsg = input.trim();
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
-    setInput('');
+  const sendMessage = async (text: string) => {
+    if (!text.trim() || isTyping) return;
+
+    setShowSuggestions(false);
+    setMessages(prev => [...prev, { role: 'user', text }]);
     setIsTyping(true);
 
     try {
       if (isDeepSearch) {
-        // Używamy wybranego trybu AI (Technical lub Business)
-        const aiAnswer = await askGeminiKSeF(userMsg, profile, aiMode);
+        const aiAnswer = await askGeminiKSeF(text, profile, aiMode);
         setMessages(prev => [...prev, { role: 'bot', text: aiAnswer }]);
       } else {
-        // Tryb Offline - szukanie w bazie
-        const answer = searchFAQ(userMsg);
+        const answer = searchFAQ(text);
         setMessages(prev => [...prev, { role: 'bot', text: answer }]);
-        
-        // Jeśli odpowiedź jest generyczna (nie znaleziona), zasugeruj AI
-        if (answer.includes("nie znalazłem w bazie offline")) {
-           setTimeout(() => {
-             setMessages(prev => [...prev, { role: 'system', text: "💡 Wskazówka: Włącz 'Analityka Gemini 3.0', aby zapytać o to sztuczną inteligencję." }]);
-           }, 1000);
+
+        if (answer.includes('nie znalazłem w bazie offline')) {
+          setTimeout(() => {
+            setMessages(prev => [...prev, { role: 'system', text: "💡 Wskazówka: Włącz 'Analityka Gemini 3.0', aby zapytać o to sztuczną inteligencję." }]);
+          }, 1000);
         }
       }
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'bot', text: "Wystąpił błąd komunikacji. Spróbuj ponownie za chwilę." }]);
+      setMessages(prev => [...prev, { role: 'bot', text: 'Wystąpił błąd komunikacji. Spróbuj ponownie za chwilę.' }]);
     } finally {
       setIsTyping(false);
     }
+  };
+
+  const handleSend = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const text = input.trim();
+    setInput('');
+    await sendMessage(text);
+  };
+
+  const handleSuggestionClick = (question: string) => {
+    sendMessage(question);
+  };
+
+  const handleClear = () => {
+    setMessages([INITIAL_MESSAGE]);
+    setShowSuggestions(true);
+    setInput('');
   };
 
   return (
@@ -92,11 +136,24 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
             </p>
           </div>
         </div>
-        <button onClick={onClose} className="p-2.5 hover:bg-white/10 rounded-2xl transition-colors">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Clear history button */}
+          <button
+            onClick={handleClear}
+            title="Wyczyść historię"
+            className="p-2.5 hover:bg-white/10 rounded-2xl transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+          {/* Close button */}
+          <button onClick={onClose} title="Zamknij (ESC)" className="p-2.5 hover:bg-white/10 rounded-2xl transition-colors">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mode Switcher */}
@@ -106,7 +163,7 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
             <div className={`w-3 h-3 rounded-full ${isDeepSearch ? 'bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.6)]' : 'bg-slate-400'}`}></div>
             <span className="text-[11px] font-black text-slate-600 dark:text-slate-100 uppercase tracking-widest">Analityka Gemini 3.0</span>
           </div>
-          <button 
+          <button
             onClick={() => setIsDeepSearch(!isDeepSearch)}
             className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${isDeepSearch ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-700'}`}
           >
@@ -117,7 +174,7 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
         {/* Sub-mode selector (Visible only when AI is ON) */}
         {isDeepSearch && (
           <div className="flex bg-slate-200 dark:bg-slate-900/50 p-1 rounded-xl animate-in slide-in-from-top-2">
-            <button 
+            <button
               onClick={() => setAiMode('technical')}
               className={`flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${
                 aiMode === 'technical' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'
@@ -125,7 +182,7 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
             >
               🔧 Techniczny (API/XML)
             </button>
-            <button 
+            <button
               onClick={() => setAiMode('business')}
               className={`flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${
                 aiMode === 'business' ? 'bg-white dark:bg-slate-700 text-green-600 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'
@@ -142,20 +199,37 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2`}>
             {m.role === 'system' ? (
-               <div className="w-full text-center my-2">
-                 <span className="text-[10px] font-bold bg-amber-50 text-amber-600 px-3 py-1 rounded-full border border-amber-100">{m.text}</span>
-               </div>
+              <div className="w-full text-center my-2">
+                <span className="text-[10px] font-bold bg-amber-50 text-amber-600 px-3 py-1 rounded-full border border-amber-100">{m.text}</span>
+              </div>
             ) : (
               <div className={`max-w-[92%] px-6 py-4.5 rounded-[2rem] text-[14px] font-medium leading-relaxed shadow-sm transition-colors ${
-                m.role === 'user' 
-                  ? 'bg-slate-900 dark:bg-blue-600 text-white rounded-tr-none' 
+                m.role === 'user'
+                  ? 'bg-slate-900 dark:bg-blue-600 text-white rounded-tr-none'
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-50 border border-slate-200 dark:border-slate-700 rounded-tl-none'
               }`}>
-                <div className="whitespace-pre-wrap">{m.text}</div>
+                <div className="whitespace-pre-wrap">{renderText(m.text)}</div>
               </div>
             )}
           </div>
         ))}
+
+        {/* Suggested questions — shown only at start */}
+        {showSuggestions && (
+          <div className="flex flex-wrap gap-2 animate-in fade-in slide-in-from-bottom-2">
+            {SUGGESTED_QUESTIONS.map((q) => (
+              <button
+                key={q}
+                onClick={() => handleSuggestionClick(q)}
+                disabled={isTyping}
+                className="px-3 py-1.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-900 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        )}
+
         {isTyping && (
           <div className="flex justify-start">
             <div className="bg-slate-100 dark:bg-slate-800 px-6 py-4 rounded-[2rem] rounded-tl-none border border-slate-200 dark:border-slate-700 flex space-x-2">
@@ -171,24 +245,24 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
       {/* Input Area */}
       <div className="p-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
         <form onSubmit={handleSend} className="flex items-center space-x-3">
-          <input 
+          <input
             type="text"
             value={input}
             disabled={isTyping}
             onChange={(e) => setInput(e.target.value)}
             placeholder={
-              isDeepSearch 
-                ? (aiMode === 'technical' ? "Wpisz kod błędu (np. 21133) lub fragment XML..." : "Zapytaj o termin lub procedurę awaryjną...") 
+              isDeepSearch
+                ? (aiMode === 'technical' ? 'Wpisz kod błędu (np. 21133) lub fragment XML...' : 'Zapytaj o termin lub procedurę awaryjną...')
                 : "Szukaj w bazie offline (np. 'kary 2027')..."
             }
             className="flex-grow px-6 py-5 bg-slate-50 dark:bg-slate-800 rounded-2xl text-[14px] font-bold outline-none border-2 border-transparent focus:border-slate-900 dark:focus:border-blue-500 text-slate-900 dark:text-white transition-all disabled:opacity-50 placeholder-slate-400"
           />
-          <button 
+          <button
             type="submit"
             disabled={isTyping || !input.trim()}
             className={`p-5 rounded-2xl transition-all shadow-xl ${
-              isTyping || !input.trim() 
-                ? 'bg-slate-100 dark:bg-slate-800 text-slate-300' 
+              isTyping || !input.trim()
+                ? 'bg-slate-100 dark:bg-slate-800 text-slate-300'
                 : 'bg-slate-900 dark:bg-blue-600 text-white hover:scale-105 active:scale-95 shadow-blue-500/20'
             }`}
           >
