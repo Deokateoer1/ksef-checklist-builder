@@ -122,6 +122,107 @@ ${KSEF_CONTEXT}
 `;
 
 // ─────────────────────────────────────────────────────────────
+// Retry + helpers
+// ─────────────────────────────────────────────────────────────
+
+const MAX_RETRIES = 3;
+const VALID_PRIORITIES = ['critical', 'high', 'medium', 'low'];
+const VALID_SECTIONS = Object.values(TaskSection);
+
+/** Usuwa ewentualne znaczniki markdown (```json ... ```) z odpowiedzi */
+function sanitizeJSON(raw: string): string {
+  return raw
+    .replace(/^```(?:json)?\s*/i, '')
+    .replace(/\s*```\s*$/i, '')
+    .trim();
+}
+
+/** Parsuje i waliduje tablicę zadań z odpowiedzi Gemini */
+function parseAndValidateTasks(raw: string | null | undefined): ChecklistTask[] {
+  if (!raw) throw new Error("Pusta odpowiedź od modelu AI.");
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(sanitizeJSON(raw));
+  } catch {
+    // Drugi try — wycinamy pierwszy JSON array z odpowiedzi
+    const match = raw.match(/\[[\s\S]*\]/);
+    if (!match) throw new Error("Odpowiedź nie zawiera poprawnego JSON.");
+    parsed = JSON.parse(match[0]);
+  }
+
+  if (!Array.isArray(parsed) || parsed.length === 0) {
+    throw new Error("Model zwrócił pustą lub niepoprawną tablicę zadań.");
+  }
+
+  // Walidacja i korekta każdego zadania
+  const tasks: ChecklistTask[] = parsed.map((item: Record<string, unknown>, idx: number) => {
+    const priority = VALID_PRIORITIES.includes(item.priority as string)
+      ? (item.priority as ChecklistTask['priority'])
+      : 'medium';
+
+    const section = VALID_SECTIONS.includes(item.section as TaskSection)
+      ? (item.section as TaskSection)
+      : TaskSection.PREPARATORY;
+
+    return {
+      id:             String(item.id ?? `task_${idx + 1}`),
+      title:          String(item.title ?? 'Zadanie bez tytułu'),
+      description:    String(item.description ?? ''),
+      priority,
+      section,
+      deadlineDays:   Number(item.deadlineDays) || 30,
+      estimatedHours: Number(item.estimatedHours) || 2,
+      dependencies:   Array.isArray(item.dependencies) ? item.dependencies.map(String) : [],
+      completed:      Boolean(item.completed ?? false),
+      automatable:    Boolean(item.automatable ?? false),
+      robotFunction:  item.robotFunction ? String(item.robotFunction) : undefined,
+      notes:          item.notes ? String(item.notes) : undefined,
+    };
+  });
+
+  console.log(`[Gemini] Wygenerowano ${tasks.length} zadań (oczekiwano 33).`);
+  return tasks;
+}
+
+/** Wywołuje funkcję z retry (domyślnie 3x) i exponential backoff dla błędów 429/5xx */
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  retries = MAX_RETRIES,
+  label = 'API call',
+): Promise<T> {
+  let lastError: Error = new Error('Unknown error');
+
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (err: unknown) {
+      lastError = err instanceof Error ? err : new Error(String(err));
+      const msg = lastError.message.toLowerCase();
+
+      // Błędy nie do odtworzenia — nie retry
+      if (msg.includes('api_key') || msg.includes('api key') || msg.includes('401') || msg.includes('403')) {
+        console.error(`[${label}] Błąd autoryzacji API — brak retry:`, lastError.message);
+        throw new Error('Błąd klucza API. Sprawdź zmienną API_KEY.');
+      }
+      if (msg.includes('404') || msg.includes('not found') || msg.includes('model')) {
+        console.error(`[${label}] Model niedostępny — brak retry:`, lastError.message);
+        throw new Error('Model AI niedostępny. Sprawdź nazwę modelu w konfiguracji.');
+      }
+
+      // 429 / 5xx — retry z backoff
+      if (attempt < retries) {
+        const delay = Math.pow(2, attempt) * 1000; // 2s, 4s, 8s
+        console.warn(`[${label}] Próba ${attempt}/${retries} nieudana, retry za ${delay}ms:`, lastError.message);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+
+  throw lastError;
+}
+
+// ─────────────────────────────────────────────────────────────
 // Główna funkcja generowania checklisty
 // ─────────────────────────────────────────────────────────────
 
@@ -166,7 +267,7 @@ ${Object.values(TaskSection).map((s, i) => `   ${i + 1}. ${s}`).join('\n')}
 
 Zwróć JSON z tablicą 33 zadań.`;
 
-  try {
+  return await withRetry(async () => {
     const response = await ai.models.generateContent({
       model: MODEL_CHECKLIST,
       contents: [{ parts: [{ text: prompt }] }],
@@ -196,11 +297,8 @@ Zwróć JSON z tablicą 33 zadań.`;
       },
     });
 
-    return JSON.parse(response.text!);
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    throw new Error("Błąd generowania. Sprawdź połączenie.");
-  }
+    return parseAndValidateTasks(response.text);
+  }, MAX_RETRIES, 'generatePersonalizedChecklist');
 }
 
 // ─────────────────────────────────────────────────────────────

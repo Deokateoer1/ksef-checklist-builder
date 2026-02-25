@@ -11,19 +11,13 @@ import ReferenceDocument from './components/ReferenceDocument';
 
 const Main: React.FC = () => {
   const { tasks, bulkTasks, isLoading } = useChecklist();
-  const [view, setView] = useState<'landing' | 'single' | 'bulk' | 'faq' | 'punchline' | 'reference'>('landing');
+  const [view, setView] = useState<'landing' | 'single' | 'bulk' | 'faq' | 'punchline' | 'reference'>('single');
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('ksef_theme');
     return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
   });
 
   const hasContent = tasks.length > 0 || (bulkTasks && Object.keys(bulkTasks).length > 0);
-
-  useEffect(() => {
-    if (hasContent && view === 'landing') {
-      setView('single');
-    }
-  }, [hasContent]);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -36,11 +30,7 @@ const Main: React.FC = () => {
   }, [isDarkMode]);
 
   const handleLogoClick = () => {
-    if (hasContent) {
-      setView('single');
-    } else {
-      setView('landing');
-    }
+    setView('single');
   };
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
@@ -122,23 +112,21 @@ const Main: React.FC = () => {
       </header>
 
       <main className="flex-grow py-12 px-4 print:py-0 print:px-0">
-        {view === 'landing' && !hasContent ? (
-          <LandingPage onStart={() => setView('single')} />
-        ) : view === 'faq' ? (
+        {view === 'faq' ? (
           <FAQSection />
         ) : view === 'punchline' ? (
           <AboutPunchline />
         ) : view === 'reference' ? (
           <ReferenceDocument />
-        ) : !hasContent ? (
+        ) : view === 'bulk' && !hasContent ? (
           <div className="w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="mb-8">
-               <button onClick={() => setView('landing')} className="text-xs font-black text-slate-400 hover:text-blue-500 flex items-center gap-2 uppercase tracking-widest transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-                  Wróć do startu
-               </button>
+              <button onClick={() => setView('single')} className="text-xs font-black text-slate-400 hover:text-blue-500 flex items-center gap-2 uppercase tracking-widest transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                Wróć
+              </button>
             </div>
-            {view === 'single' ? <OnboardingForm /> : <BulkGenerationForm />}
+            <BulkGenerationForm />
           </div>
         ) : (
           <ChecklistDashboard />
