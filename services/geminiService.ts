@@ -1,12 +1,43 @@
-import { GoogleGenAI, Type } from "@google/genai";
 import { ChecklistTask, UserProfile, BulkChecklistMap, TaskSection } from "../types";
 import { searchFAQAdvanced } from "./faqSearch";
 
 // ─────────────────────────────────────────────────────────────
 // Model
 // ─────────────────────────────────────────────────────────────
-const MODEL_CHECKLIST = 'gemini-3-pro-preview';   // Gemini 3 Pro — generowanie checklisty
-const MODEL_CHAT      = 'gemini-3-flash-preview';  // Gemini 3 Flash — czat (szybszy)
+const MODEL_CHECKLIST = 'gemini-3.1-pro-preview';   // Gemini 3.1 Pro Preview — generowanie checklisty
+const MODEL_CHAT      = 'gemini-3.1-flash-preview';  // Gemini 3.1 Flash Preview — czat (szybszy)
+
+// ─────────────────────────────────────────────────────────────
+// Proxy → backend (klucz API bezpieczny po stronie serwera)
+// ─────────────────────────────────────────────────────────────
+const BACKEND_URL = import.meta.env.VITE_ROBOT_API_URL || 'http://localhost:8000';
+
+async function callGeminiProxy(
+  prompt: string,
+  model: string,
+  config?: { responseMimeType?: string; temperature?: number; topP?: number; systemInstruction?: string }
+): Promise<string> {
+  const res = await fetch(`${BACKEND_URL}/api/gemini`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt, model, config }),
+  });
+
+  if (!res.ok) {
+    const err = await res.text().catch(() => res.statusText);
+    // Mapowanie błędów na czytelne komunikaty (zachowanie jak wcześniej)
+    if (res.status === 401 || res.status === 403) {
+      throw new Error('Błąd klucza API. Sprawdź zmienną API_KEY.');
+    }
+    if (res.status === 404) {
+      throw new Error('Model AI niedostępny. Sprawdź nazwę modelu w konfiguracji.');
+    }
+    throw new Error(`Błąd backendu ${res.status}: ${err}`);
+  }
+
+  const data = await res.json();
+  return data.result as string;
+}
 
 // ─────────────────────────────────────────────────────────────
 // Kontekst bazowy KSeF (daty, architektura)
@@ -68,7 +99,6 @@ function buildKnowledgeBase(): string {
       for (const r of results.slice(0, 2)) {
         if (!seen.has(r.item.id) && pairs.length < 4) {
           seen.add(r.item.id);
-          // Skracamy odpowiedź do 200 znaków żeby nie przepełnić kontekstu
           const ans = r.item.answer.length > 200
             ? r.item.answer.slice(0, 197) + '...'
             : r.item.answer;
@@ -145,7 +175,6 @@ function parseAndValidateTasks(raw: string | null | undefined): ChecklistTask[] 
   try {
     parsed = JSON.parse(sanitizeJSON(raw));
   } catch {
-    // Drugi try — wycinamy pierwszy JSON array z odpowiedzi
     const match = raw.match(/\[[\s\S]*\]/);
     if (!match) throw new Error("Odpowiedź nie zawiera poprawnego JSON.");
     parsed = JSON.parse(match[0]);
@@ -155,7 +184,6 @@ function parseAndValidateTasks(raw: string | null | undefined): ChecklistTask[] 
     throw new Error("Model zwrócił pustą lub niepoprawną tablicę zadań.");
   }
 
-  // Walidacja i korekta każdego zadania
   const tasks: ChecklistTask[] = parsed.map((item: Record<string, unknown>, idx: number) => {
     const priority = VALID_PRIORITIES.includes(item.priority as string)
       ? (item.priority as ChecklistTask['priority'])
@@ -185,7 +213,7 @@ function parseAndValidateTasks(raw: string | null | undefined): ChecklistTask[] 
   return tasks;
 }
 
-/** Wywołuje funkcję z retry (domyślnie 3x) i exponential backoff dla błędów 429/5xx */
+/** Wywołuje funkcję z retry (domyślnie 3x) i exponential backoff dla błędów sieciowych */
 async function withRetry<T>(
   fn: () => Promise<T>,
   retries = MAX_RETRIES,
@@ -200,7 +228,6 @@ async function withRetry<T>(
       lastError = err instanceof Error ? err : new Error(String(err));
       const msg = lastError.message.toLowerCase();
 
-      // Błędy nie do odtworzenia — nie retry
       if (msg.includes('api_key') || msg.includes('api key') || msg.includes('401') || msg.includes('403')) {
         console.error(`[${label}] Błąd autoryzacji API — brak retry:`, lastError.message);
         throw new Error('Błąd klucza API. Sprawdź zmienną API_KEY.');
@@ -210,9 +237,8 @@ async function withRetry<T>(
         throw new Error('Model AI niedostępny. Sprawdź nazwę modelu w konfiguracji.');
       }
 
-      // 429 / 5xx — retry z backoff
       if (attempt < retries) {
-        const delay = Math.pow(2, attempt) * 1000; // 2s, 4s, 8s
+        const delay = Math.pow(2, attempt) * 1000;
         console.warn(`[${label}] Próba ${attempt}/${retries} nieudana, retry za ${delay}ms:`, lastError.message);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
@@ -227,9 +253,6 @@ async function withRetry<T>(
 // ─────────────────────────────────────────────────────────────
 
 export async function generatePersonalizedChecklist(profile: UserProfile): Promise<ChecklistTask[]> {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
-  // Budujemy bazę wiedzy z FAQ Database (RAG)
   const knowledgeBase = buildKnowledgeBase();
 
   const prompt = `Działaj jako Senior KSeF Architect. Wygeneruj ekspercką checklistę wdrożeniową KSeF 2.0 dla:
@@ -251,7 +274,6 @@ ${Object.values(TaskSection).map((s, i) => `   ${i + 1}. ${s}`).join('\n')}
    - low      = optymalizacje i usprawnienia
 
 3. SPECYFIKA BRANŻY — minimum 3 zadania muszą być specyficzne dla branży "${profile.industry}"
-   (np. specyficzne typy faktur, regulacje branżowe, GTU, procedury OSS/MPP jeśli dotyczy)
 
 4. TECHNICZNE WYMAGANIA — zadania techniczne MUSZĄ zawierać:
    - Obsługę błędu 21133 (Niezgodność ze schemą FA(3) — NIE błąd NIP!)
@@ -265,39 +287,13 @@ ${Object.values(TaskSection).map((s, i) => `   ${i + 1}. ${s}`).join('\n')}
    - Zadania high: max 60 dni
    - Zadania medium: max 120 dni
 
-Zwróć JSON z tablicą 33 zadań.`;
+Zwróć JSON z tablicą 33 zadań. Każde zadanie musi mieć pola: id, title, description, priority, section, deadlineDays, estimatedHours, dependencies, completed, automatable.`;
 
   return await withRetry(async () => {
-    const response = await ai.models.generateContent({
-      model: MODEL_CHECKLIST,
-      contents: [{ parts: [{ text: prompt }] }],
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.ARRAY,
-          items: {
-            type: Type.OBJECT,
-            properties: {
-              id:             { type: Type.STRING },
-              title:          { type: Type.STRING },
-              description:    { type: Type.STRING },
-              priority:       { type: Type.STRING, enum: ['critical', 'high', 'medium', 'low'] },
-              section:        { type: Type.STRING, enum: Object.values(TaskSection) },
-              deadlineDays:   { type: Type.INTEGER },
-              estimatedHours: { type: Type.INTEGER },
-              dependencies:   { type: Type.ARRAY, items: { type: Type.STRING } },
-              completed:      { type: Type.BOOLEAN },
-              automatable:    { type: Type.BOOLEAN },
-              robotFunction:  { type: Type.STRING },
-            },
-            required: ["id", "title", "description", "priority", "section",
-                       "deadlineDays", "estimatedHours", "dependencies", "completed", "automatable"],
-          },
-        },
-      },
+    const raw = await callGeminiProxy(prompt, MODEL_CHECKLIST, {
+      responseMimeType: 'application/json',
     });
-
-    return parseAndValidateTasks(response.text);
+    return parseAndValidateTasks(raw);
   }, MAX_RETRIES, 'generatePersonalizedChecklist');
 }
 
@@ -331,21 +327,15 @@ export async function askGeminiKSeF(
   profile: UserProfile | null,
   mode: 'technical' | 'business' = 'technical'
 ): Promise<string> {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
   const systemInstruction = mode === 'technical' ? SYSTEM_PROMPT_TECHNICAL : SYSTEM_PROMPT_BUSINESS;
   const userContext = profile
     ? `\nUŻYTKOWNIK: ${profile.companySize}, Branża: ${profile.industry}, ERP: ${profile.erpSystem}`
     : '';
 
-  try {
-    const response = await ai.models.generateContent({
-      model: MODEL_CHAT,
-      contents: [{ parts: [{ text: query + userContext }] }],
-      config: { systemInstruction },
-    });
-    return response.text || "Brak odpowiedzi od systemu AI.";
-  } catch (error) {
-    return "Błąd połączenia z modułem Gemini AI.";
-  }
+  const result = await callGeminiProxy(
+    query + userContext,
+    MODEL_CHAT,
+    { systemInstruction }
+  );
+  return result || "Brak odpowiedzi od systemu AI.";
 }
