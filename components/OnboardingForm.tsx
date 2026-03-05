@@ -5,7 +5,7 @@ import { useChecklist } from '../context/ChecklistContext';
 import Tooltip from './Tooltip';
 
 const LOADING_STEPS = [
-  "Inicjalizacja silnika wnioskowania Gemini 3 Pro...",
+  "Inicjalizacja silnika wnioskowania Gemini 3.1 Pro Preview...",
   "Analiza struktury logicznej FA-3 (Ministerstwo Finansów)...",
   "Mapowanie 92 kodów błędów dla Twojego sektora...",
   "Symulacja scenariuszy trybu offline i awaryjnego...",
@@ -19,6 +19,8 @@ const OnboardingForm: React.FC = () => {
   const { generateChecklist, isLoading, error: apiError } = useChecklist();
   const [stepIndex, setStepIndex] = useState(0);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [dataConsent, setDataConsent] = useState(false);
   const [profile, setProfile] = useState<UserProfile>({
     companySize: CompanySize.SMALL,
     industry: '', 
@@ -43,7 +45,7 @@ const OnboardingForm: React.FC = () => {
     industry: getValidationError('industry'),
   };
 
-  const isFormValid = profile.industry.trim().length >= 2 && (errors.industry === "");
+  const isFormValid = profile.industry.trim().length >= 2 && (errors.industry === "") && termsAccepted && dataConsent;
 
   useEffect(() => {
     let interval: number;
@@ -172,13 +174,57 @@ const OnboardingForm: React.FC = () => {
           </div>
         </div>
 
+        {/* Checkboxy zgody — wymagane przed wysłaniem */}
+        <div className="space-y-3 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <input
+              type="checkbox"
+              required
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+              className="mt-1 w-4 h-4 rounded border-slate-300 text-punchline-blue focus:ring-punchline-blue cursor-pointer"
+            />
+            <span className="text-xs text-slate-600 leading-relaxed">
+              Akceptuję{' '}
+              <a href="https://punchlineroi.com/regulamin.html" target="_blank" rel="noopener noreferrer" className="text-punchline-blue underline font-semibold">
+                Regulamin
+              </a>{' '}
+              i rozumiem, że wyniki generowane przez AI (Gemini 3.1) mają charakter{' '}
+              <strong>wyłącznie pomocniczy</strong> i wymagają weryfikacji przez człowieka
+              przed podjęciem decyzji biznesowych (Human-in-the-loop).
+            </span>
+          </label>
+
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <input
+              type="checkbox"
+              required
+              checked={dataConsent}
+              onChange={(e) => setDataConsent(e.target.checked)}
+              className="mt-1 w-4 h-4 rounded border-slate-300 text-punchline-blue focus:ring-punchline-blue cursor-pointer"
+            />
+            <span className="text-xs text-slate-600 leading-relaxed">
+              Wyrażam zgodę na powierzenie danych podprocesorom (Google Gemini AI, Hetzner, Netlify, Stripe)
+              zgodnie z{' '}
+              <a href="https://punchlineroi.com/polityka-prywatnosci.html" target="_blank" rel="noopener noreferrer" className="text-punchline-blue underline font-semibold">
+                Polityką Prywatności
+              </a>{' '}
+              oraz{' '}
+              <a href="https://punchlineroi.com/dpa.html" target="_blank" rel="noopener noreferrer" className="text-punchline-blue underline font-semibold">
+                Umową Powierzenia (DPA)
+              </a>.
+            </span>
+          </label>
+        </div>
+
         <div className="relative">
-          <button 
+          <button
             type="submit"
-            disabled={isLoading}
-            className={`w-full py-5 px-6 rounded-2xl font-black text-white transition-all transform hover:scale-[1.02] active:scale-95 flex flex-col items-center justify-center space-y-2 ${
-              isLoading ? 'bg-slate-900 cursor-wait' : 
-              'bg-gradient-to-br from-punchline-blue to-slate-900 hover:opacity-90 shadow-2xl shadow-blue-200'
+            disabled={isLoading || !termsAccepted || !dataConsent}
+            className={`w-full py-5 px-6 rounded-2xl font-black text-white transition-all transform flex flex-col items-center justify-center space-y-2 ${
+              isLoading ? 'bg-slate-900 cursor-wait' :
+              (!termsAccepted || !dataConsent) ? 'bg-slate-300 cursor-not-allowed opacity-60' :
+              'bg-gradient-to-br from-punchline-blue to-slate-900 hover:opacity-90 hover:scale-[1.02] active:scale-95 shadow-2xl shadow-blue-200'
             }`}
           >
             {isLoading ? (

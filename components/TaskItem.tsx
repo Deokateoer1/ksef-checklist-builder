@@ -25,6 +25,13 @@ const PRIORITY_DOT: Record<TaskPriority, string> = {
   [TaskPriority.LOW]:      'bg-slate-300',
 };
 
+const PRIORITY_LABEL: Record<TaskPriority, string> = {
+  [TaskPriority.CRITICAL]: 'KRYTYCZNE',
+  [TaskPriority.HIGH]:     'WYSOKIE',
+  [TaskPriority.MEDIUM]:   'ŚREDNIE',
+  [TaskPriority.LOW]:      'NISKIE',
+};
+
 const TaskItem: React.FC<TaskItemProps> = ({ task, index, isNext, onToggle, onUpdateNote }) => {
   const [showModal, setShowModal]   = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -96,7 +103,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, index, isNext, onToggle, onUp
             {/* Priorytet — kropka + etykieta */}
             <span className={`hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold border ${PRIORITY_BADGE[task.priority]}`}>
               <span className={`w-1.5 h-1.5 rounded-full ${PRIORITY_DOT[task.priority]}`} />
-              {task.priority}
+              {PRIORITY_LABEL[task.priority]}
             </span>
 
             {/* Robot badge — skondensowany */}

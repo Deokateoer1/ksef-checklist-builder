@@ -4,9 +4,10 @@ import { CompanySize, ERPType, INDUSTRIES } from '../types';
 import { useChecklist } from '../context/ChecklistContext';
 
 const BulkGenerationForm: React.FC = () => {
-  const { generateBulk, isLoading } = useChecklist();
+  const { generateBulk, isLoading, error } = useChecklist();
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [merge, setMerge] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const [baseProfile, setBaseProfile] = useState({
     companySize: CompanySize.MEDIUM,
     erpSystem: ERPType.POPULAR,
@@ -14,58 +15,81 @@ const BulkGenerationForm: React.FC = () => {
   });
 
   const toggleIndustry = (ind: string) => {
-    setSelectedIndustries(prev => 
+    setValidationError(null);
+    setSelectedIndustries(prev =>
       prev.includes(ind) ? prev.filter(i => i !== ind) : [...prev, ind]
     );
   };
 
   const selectAll = () => {
+    setValidationError(null);
     setSelectedIndustries(selectedIndustries.length === INDUSTRIES.length ? [] : [...INDUSTRIES]);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (selectedIndustries.length === 0) return alert("Wybierz przynajmniej jedną branżę!");
+    if (selectedIndustries.length === 0) {
+      setValidationError('Wybierz przynajmniej jedną branżę przed generowaniem.');
+      return;
+    }
+    setValidationError(null);
     generateBulk(selectedIndustries, baseProfile, merge);
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white p-8 rounded-[2rem] shadow-2xl border border-slate-100">
+    <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 p-8 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-800">
       <div className="mb-10 text-center">
-        <div className="inline-flex p-3 bg-blue-50 text-blue-600 rounded-2xl mb-4">
+        <div className="inline-flex p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-2xl mb-4">
           <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
         </div>
-        <h1 className="text-3xl font-black text-slate-900 mb-2">Generowanie Seryjne (Bulk)</h1>
-        <p className="text-slate-500 font-medium">Przygotuj pakiety wdrożeniowe dla wielu sektorów jednocześnie.</p>
+        <h1 className="text-3xl font-black text-slate-900 dark:text-white mb-2">Generowanie Seryjne (Bulk)</h1>
+        <p className="text-slate-500 dark:text-slate-400 font-medium">Przygotuj pakiety wdrożeniowe dla wielu sektorów jednocześnie.</p>
       </div>
+
+      {/* Błędy walidacji lub błędy API */}
+      {(validationError || error) && (
+        <div className="mb-6 flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl text-red-700 dark:text-red-400">
+          <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p className="text-sm font-bold">{validationError || error}</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-8">
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest">1. Wybierz branże</h3>
-            <button 
-              type="button" 
+            <h3 className="text-sm font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+              1. Wybierz branże
+              {selectedIndustries.length > 0 && (
+                <span className="ml-2 text-blue-600 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-lg text-[10px]">
+                  {selectedIndustries.length} wybranych
+                </span>
+              )}
+            </h3>
+            <button
+              type="button"
               onClick={selectAll}
               className="text-xs font-bold text-blue-600 hover:underline"
             >
               {selectedIndustries.length === INDUSTRIES.length ? "Odznacz wszystkie" : "Zaznacz wszystkie"}
             </button>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className={`grid grid-cols-2 sm:grid-cols-4 gap-3 ${validationError ? 'ring-2 ring-red-300 dark:ring-red-700 rounded-2xl p-3' : ''}`}>
             {INDUSTRIES.map(ind => (
-              <label 
-                key={ind} 
+              <label
+                key={ind}
                 className={`flex items-center p-3 rounded-xl border-2 transition-all cursor-pointer ${
-                  selectedIndustries.includes(ind) 
-                    ? 'bg-blue-50 border-blue-500 text-blue-700' 
-                    : 'bg-slate-50 border-transparent text-slate-500 hover:bg-slate-100'
+                  selectedIndustries.includes(ind)
+                    ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-700 dark:text-blue-300'
+                    : 'bg-slate-50 dark:bg-slate-800 border-transparent text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'
                 }`}
               >
-                <input 
-                  type="checkbox" 
-                  className="hidden" 
+                <input
+                  type="checkbox"
+                  className="hidden"
                   checked={selectedIndustries.includes(ind)}
                   onChange={() => toggleIndustry(ind)}
                 />
@@ -77,24 +101,24 @@ const BulkGenerationForm: React.FC = () => {
 
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">2. Profil wspólny</h3>
+            <h3 className="text-sm font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">2. Profil wspólny</h3>
             <div className="space-y-4">
               <div>
                 <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Wielkość firm</label>
-                <select 
+                <select
                   value={baseProfile.companySize}
                   onChange={(e) => setBaseProfile({...baseProfile, companySize: e.target.value as CompanySize})}
-                  className="w-full p-3 rounded-xl bg-slate-50 border-none outline-none text-sm font-bold text-slate-700"
+                  className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border-none outline-none text-sm font-bold text-slate-700 dark:text-slate-200"
                 >
                   {Object.values(CompanySize).map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
               <div>
                 <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">System ERP</label>
-                <select 
+                <select
                   value={baseProfile.erpSystem}
                   onChange={(e) => setBaseProfile({...baseProfile, erpSystem: e.target.value as ERPType})}
-                  className="w-full p-3 rounded-xl bg-slate-50 border-none outline-none text-sm font-bold text-slate-700"
+                  className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border-none outline-none text-sm font-bold text-slate-700 dark:text-slate-200"
                 >
                   {Object.values(ERPType).map(e => <option key={e} value={e}>{e}</option>)}
                 </select>
@@ -103,17 +127,17 @@ const BulkGenerationForm: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">3. Opcje generowania</h3>
+            <h3 className="text-sm font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">3. Opcje generowania</h3>
             <div className="space-y-4">
-              <label className="flex items-center space-x-3 p-4 bg-slate-50 rounded-2xl cursor-pointer">
-                <input 
-                  type="checkbox" 
+              <label className="flex items-center space-x-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl cursor-pointer">
+                <input
+                  type="checkbox"
                   checked={merge}
                   onChange={e => setMerge(e.target.checked)}
                   className="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"
                 />
                 <div>
-                  <span className="block text-sm font-bold text-slate-800">Jedna wspólna checklista</span>
+                  <span className="block text-sm font-bold text-slate-800 dark:text-white">Jedna wspólna checklista</span>
                   <span className="block text-[10px] text-slate-400 font-medium">Połącz zadania wszystkich branż w jeden widok</span>
                 </div>
               </label>
@@ -121,19 +145,31 @@ const BulkGenerationForm: React.FC = () => {
           </div>
         </section>
 
-        <button 
+        <button
           type="submit"
           disabled={isLoading || selectedIndustries.length === 0}
           className={`w-full py-5 rounded-2xl font-black text-white transition-all transform hover:scale-[1.01] flex items-center justify-center space-x-4 ${
             isLoading || selectedIndustries.length === 0
-              ? 'bg-slate-300 cursor-not-allowed'
+              ? 'bg-slate-300 dark:bg-slate-700 cursor-not-allowed'
               : 'bg-gradient-to-r from-blue-600 to-indigo-700 shadow-xl shadow-blue-200'
           }`}
         >
-          <svg className="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-          <span className="text-lg">GENERUJ PAKIET {selectedIndustries.length} CHECKLIST</span>
+          {isLoading ? (
+            <>
+              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              <span className="text-lg">GENERUJĘ...</span>
+            </>
+          ) : (
+            <>
+              <svg className="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span className="text-lg">GENERUJ PAKIET {selectedIndustries.length > 0 ? selectedIndustries.length : ''} CHECKLIST</span>
+            </>
+          )}
         </button>
       </form>
     </div>

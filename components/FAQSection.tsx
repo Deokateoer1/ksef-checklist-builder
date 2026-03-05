@@ -25,6 +25,39 @@ const ROLES: {id: FAQAudience | 'wszyscy', label: string}[] = [
     { id: 'audytor', label: 'Audyt' }
 ];
 
+// ─── Normalizacja polskich znaków ─────────────────────────────────────────────
+// Konwertuje "ą→a, ę→e, ó→o, ś→s, ź→z, ż→z, ć→c, ń→n, ł→l" + lowercase
+
+function normalizePolish(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/ł/g, 'l')           // ł nie rozkłada się przez NFD — ręczna zamiana
+    .normalize('NFD')              // rozkłada ą→a+ogonek, ś→s+acute itp.
+    .replace(/[\u0300-\u036f]/g, '') // usuwa combining diacritical marks
+    .trim();
+}
+
+// Polskie stopwordy — ignorowane przy filtrze wielowyrazowym
+const SEARCH_STOPWORDS = new Set([
+  'za', 'w', 'na', 'i', 'z', 'ze', 'do', 'od', 'po', 'co', 'jak',
+  'czy', 'sie', 'jest', 'sa', 'to', 'a', 'o', 'u', 'ku', 'bo',
+  'lub', 'albo', 'ni', 'te', 'tu', 'ta', 'ten', 'ta', 'to',
+]);
+
+/** Dzieli zapytanie na tokeny: normalizuje, usuwa stopwordy i krótkie słowa */
+function tokenizeSearch(query: string): string[] {
+  return normalizePolish(query)
+    .split(/\s+/)
+    .filter(w => w.length >= 3 && !SEARCH_STOPWORDS.has(w));
+}
+
+/** Liczy ile tokenów pasuje do znormalizowanego tekstu */
+function countHits(tokens: string[], normalizedText: string): number {
+  return tokens.filter(t => normalizedText.includes(t)).length;
+}
+
+// ─── Komponent ─────────────────────────────────────────────────────────────────
+
 const FAQSection: React.FC = () => {
   const [search, setSearch] = useState('');
   const [activePhase, setActivePhase] = useState<number>(-1);
@@ -32,16 +65,51 @@ const FAQSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<string | null>(null);
 
   const filteredFAQ = useMemo(() => {
-    return FAQ_DATABASE.filter(item => {
-      const matchesSearch = item.question.toLowerCase().includes(search.toLowerCase()) || 
-                            item.answer.toLowerCase().includes(search.toLowerCase()) ||
-                            item.tags.some(t => t.toLowerCase().includes(search.toLowerCase()));
-      
+    const trimmed = search.trim();
+    const tokens = tokenizeSearch(trimmed);
+    const normalized = normalizePolish(trimmed);
+
+    const filtered = FAQ_DATABASE.filter(item => {
+      // ── Filtry fazy i roli ──────────────────────────────────────────────────
       const matchesPhase = activePhase === -1 || item.phase === activePhase;
       const matchesRole = activeRole === 'wszyscy' || item.audience === activeRole || item.audience === 'wszyscy';
+      if (!matchesPhase || !matchesRole) return false;
 
-      return matchesSearch && matchesPhase && matchesRole;
+      // ── Filtr wyszukiwania ─────────────────────────────────────────────────
+      if (!trimmed) return true;
+
+      const qNorm  = normalizePolish(item.question);
+      const aNorm  = normalizePolish(item.answer);
+      const tagsNorm = item.tags.map(t => normalizePolish(t));
+      const tagsStr  = tagsNorm.join(' ');
+      const allText  = `${qNorm} ${aNorm} ${tagsStr}`;
+
+      if (tokens.length <= 1) {
+        // Pojedynczy token (lub samo zapytanie bez spacji) — dopasowanie podciągu
+        const q = tokens[0] ?? normalized;
+        return qNorm.includes(q) || aNorm.includes(q) || tagsNorm.some(t => t.includes(q));
+      }
+
+      // Wielowyrazowe: wymaga trafienia ≥ 50% tokenów gdziekolwiek w rekordzie
+      const hits     = countHits(tokens, allText);
+      const required = Math.ceil(tokens.length * 0.5);
+      return hits >= required;
     });
+
+    // ── Sortowanie po trafności ────────────────────────────────────────────────
+    if (!trimmed) return filtered;
+
+    return [...filtered].sort((a, b) => {
+      const scoreOf = (item: typeof FAQ_DATABASE[0]) => {
+        const all = `${normalizePolish(item.question)} ${normalizePolish(item.answer)} ${item.tags.map(t => normalizePolish(t)).join(' ')}`;
+        // Więcej trafień = wyżej; kuratowane FAQ (nie GEN_) dostają +0.5 bonusu
+        const hitScore  = tokens.length > 0 ? countHits(tokens, all) : 0;
+        const isCurated = item.id.startsWith('GEN_') ? 0 : 0.5;
+        return hitScore + isCurated;
+      };
+      return scoreOf(b) - scoreOf(a);
+    });
+
   }, [search, activePhase, activeRole]);
 
   return (
@@ -61,7 +129,7 @@ const FAQSection: React.FC = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <input 
+          <input
             type="text"
             placeholder="Szukaj kodu błędu (np. 21133), procedury offline, lub tematu..."
             value={search}
@@ -79,8 +147,8 @@ const FAQSection: React.FC = () => {
                 key={phase.id}
                 onClick={() => { setActivePhase(phase.id); setOpenIndex(null); }}
                 className={`px-3 py-2 rounded-xl text-[10px] font-black transition-all border-2 flex items-center space-x-2 ${
-                    activePhase === phase.id 
-                    ? 'bg-blue-600 border-blue-600 text-white shadow-lg' 
+                    activePhase === phase.id
+                    ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
                     : 'bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400'
                 }`}
                 >
@@ -113,11 +181,11 @@ const FAQSection: React.FC = () => {
         <div className="space-y-4">
           {filteredFAQ.length > 0 ? (
             filteredFAQ.map((item) => (
-              <div 
+              <div
                 key={item.id}
                 className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-700 overflow-hidden transition-all duration-300 hover:shadow-md"
               >
-                <button 
+                <button
                   onClick={() => setOpenIndex(openIndex === item.id ? null : item.id)}
                   className="w-full px-8 py-6 flex items-start justify-between text-left"
                 >
@@ -143,14 +211,14 @@ const FAQSection: React.FC = () => {
                     </svg>
                   </div>
                 </button>
-                
+
                 {openIndex === item.id && (
                   <div className="px-8 pb-8 animate-in slide-in-from-top-2 duration-300">
                     <div className="pt-4 border-t border-slate-200/50 dark:border-slate-700">
                       <p className="text-sm font-medium text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line mb-4">
                         {item.answer}
                       </p>
-                      
+
                       {/* Metadata Footer */}
                       <div className="flex flex-wrap items-center justify-between gap-4 mt-4 pt-4 bg-white/50 dark:bg-black/20 rounded-xl p-3">
                           <div className="flex flex-wrap gap-2">

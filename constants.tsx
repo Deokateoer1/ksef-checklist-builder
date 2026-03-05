@@ -1,3 +1,5 @@
+// Adres API robota (ustawiany przez Vite z env)
+export const API_URL = import.meta.env.VITE_ROBOT_API_URL;
 
 import React from 'react';
 

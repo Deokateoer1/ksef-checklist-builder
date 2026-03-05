@@ -20,8 +20,10 @@ const PRIORITY_COLORS: Record<string, { hex: string; label: string }> = {
 const ChecklistExport: React.FC<ChecklistExportProps> = () => {
   const { tasks, profile, exportToCSV, exportToJSON } = useChecklist();
   const [isExporting, setIsExporting] = useState(false);
+  const [exportingFormat, setExportingFormat] = useState<'pdf' | 'docx' | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [exportError, setExportError] = useState<string | null>(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Opcje raportu
@@ -72,15 +74,22 @@ const ChecklistExport: React.FC<ChecklistExportProps> = () => {
   const today = new Date().toLocaleDateString('pl-PL');
 
   const showSuccess = (msg: string) => {
+    setExportError(null);
     setSuccessMsg(msg);
     setTimeout(() => setSuccessMsg(null), 3500);
+  };
+
+  const showError = (msg: string) => {
+    setExportError(msg);
+    setTimeout(() => setExportError(null), 5000);
   };
 
   // ── PDF (jsPDF text-based — pełna strona, bez pustych pól) ──────────────
 
   const handleGeneratePDF = () => {
-    if (filteredTasks.length === 0) return alert("Wybierz zadania do eksportu!");
+    if (filteredTasks.length === 0) { showError("Wybierz co najmniej jedno zadanie do eksportu."); return; }
     setIsExporting(true);
+    setExportingFormat('pdf');
 
     try {
       const pdf = new jsPDF('p', 'mm', 'a4');
@@ -230,17 +239,19 @@ const ChecklistExport: React.FC<ChecklistExportProps> = () => {
       showSuccess("✅ PDF gotowy!");
     } catch (e) {
       console.error(e);
-      alert("Błąd generowania PDF. Sprawdź konsolę.");
+      showError("Błąd generowania PDF. Spróbuj ponownie lub użyj eksportu DOCX.");
     } finally {
       setIsExporting(false);
+      setExportingFormat(null);
     }
   };
 
   // ── DOCX ────────────────────────────────────────────────────────────────
 
   const handleGenerateDOC = async () => {
-    if (filteredTasks.length === 0) return alert("Wybierz zadania!");
+    if (filteredTasks.length === 0) { showError("Wybierz co najmniej jedno zadanie do eksportu."); return; }
     setIsExporting(true);
+    setExportingFormat('docx');
 
     try {
       const children: Paragraph[] = [
@@ -319,9 +330,10 @@ const ChecklistExport: React.FC<ChecklistExportProps> = () => {
       showSuccess("✅ DOCX gotowy!");
     } catch (e) {
       console.error(e);
-      alert("Błąd generowania DOCX.");
+      showError("Błąd generowania DOCX. Spróbuj ponownie.");
     } finally {
       setIsExporting(false);
+      setExportingFormat(null);
     }
   };
 
@@ -455,6 +467,15 @@ const ChecklistExport: React.FC<ChecklistExportProps> = () => {
           {successMsg}
         </div>
       )}
+      {/* Pasek błędu */}
+      {exportError && (
+        <div className="mb-3 px-4 py-3 bg-red-50 border border-red-200 text-red-700 rounded-2xl text-xs font-bold text-center animate-in fade-in flex items-center justify-center gap-2">
+          <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {exportError}
+        </div>
+      )}
 
       {/* Główny kafelek eksportu */}
       <div className="bg-white dark:bg-slate-900 p-5 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm">
@@ -492,16 +513,30 @@ const ChecklistExport: React.FC<ChecklistExportProps> = () => {
             disabled={isExporting}
             className="flex flex-col items-center gap-1.5 py-3 px-2 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-all border border-slate-200 dark:border-slate-700 disabled:opacity-50"
           >
-            <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-            <span className="text-[9px] font-black uppercase text-slate-500">PDF</span>
+            {exportingFormat === 'pdf' ? (
+              <svg className="w-5 h-5 text-red-500 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+            )}
+            <span className="text-[9px] font-black uppercase text-slate-500">{exportingFormat === 'pdf' ? '...' : 'PDF'}</span>
           </button>
           <button
             onClick={handleGenerateDOC}
             disabled={isExporting}
             className="flex flex-col items-center gap-1.5 py-3 px-2 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-all border border-slate-200 dark:border-slate-700 disabled:opacity-50"
           >
-            <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-            <span className="text-[9px] font-black uppercase text-slate-500">DOCX</span>
+            {exportingFormat === 'docx' ? (
+              <svg className="w-5 h-5 text-indigo-500 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            )}
+            <span className="text-[9px] font-black uppercase text-slate-500">{exportingFormat === 'docx' ? '...' : 'DOCX'}</span>
           </button>
         </div>
       </div>

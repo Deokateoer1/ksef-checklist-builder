@@ -86,7 +86,7 @@ const KSeFTimeline: React.FC = () => {
 
       <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-300 dark:text-slate-200 mb-8 flex items-center gap-2">
         <div className="w-2 h-2 bg-blue-500 rounded-full animate-ping"></div>
-        KSeF Legal Roadmap
+        KSeF Harmonogram Prawny
       </h3>
 
       <div className="relative h-[350px] ml-4">
@@ -94,7 +94,7 @@ const KSeFTimeline: React.FC = () => {
         <div className="absolute left-0 top-0 w-1 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(37,99,235,0.5)]" style={{ height: `${todayPos}%` }}></div>
         <div className="absolute left-[-6px] transition-all duration-1000 z-20 group" style={{ top: `${todayPos}%` }}>
           <div className="w-4 h-4 bg-white rounded-full border-4 border-blue-600 shadow-[0_0_15px_rgba(255,255,255,0.8)] animate-pulse"></div>
-          <div className="absolute left-8 top-1/2 -translate-y-1/2 bg-blue-600 px-3 py-1 rounded-lg shadow-xl whitespace-nowrap">
+          <div className="absolute left-8 bottom-full mb-1 bg-blue-600 px-3 py-1 rounded-lg shadow-xl whitespace-nowrap">
             <span className="text-[10px] font-black uppercase tracking-widest text-white">TU JESTEŚ</span>
           </div>
         </div>
@@ -251,7 +251,7 @@ const InlineGenerationForm: React.FC<InlineFormProps> = ({ onGenerate, isLoading
             <svg className="w-4 h-4 text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V7h2v2z" /></svg>
           </Tooltip>
         </div>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {['1-100', '101-1000', '1001-10000', '10000+'].map((val) => (
             <button
               key={val}
@@ -288,14 +288,29 @@ const InlineGenerationForm: React.FC<InlineFormProps> = ({ onGenerate, isLoading
 interface UrgencyRibbonProps {
   tasks: Array<{ priority: string; completed: boolean; deadlineDays: number }>;
   onFilter: (type: 'critical' | 'urgent') => void;
-  onDismiss: () => void;
+  isCollapsed: boolean;
+  onCollapse: () => void;
 }
 
-const SmartUrgencyRibbon: React.FC<UrgencyRibbonProps> = ({ tasks, onFilter, onDismiss }) => {
+const SmartUrgencyRibbon: React.FC<UrgencyRibbonProps> = ({ tasks, onFilter, isCollapsed, onCollapse }) => {
   const criticalOpen = tasks.filter(t => t.priority === 'critical' && !t.completed).length;
   const urgentOpen   = tasks.filter(t => t.priority === 'high' && !t.completed && t.deadlineDays <= 30).length;
 
   if (criticalOpen === 0 && urgentOpen === 0) return null;
+
+  // Zwinięty widok — mała pigułka, klikalny by rozwinąć
+  if (isCollapsed) {
+    return (
+      <button
+        onClick={onCollapse}
+        title="Pokaż alerty krytyczne"
+        className="flex items-center gap-1.5 self-start px-3 py-1.5 rounded-xl text-[10px] font-black bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors animate-in fade-in"
+      >
+        <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
+        {criticalOpen + urgentOpen} alert{criticalOpen + urgentOpen !== 1 ? 'y' : ''} ▼
+      </button>
+    );
+  }
 
   return (
     <div className={`flex items-center justify-between gap-3 px-4 py-2.5 rounded-2xl text-xs font-bold animate-in slide-in-from-top-2 ${
@@ -310,7 +325,7 @@ const SmartUrgencyRibbon: React.FC<UrgencyRibbonProps> = ({ tasks, onFilter, onD
             className="flex items-center gap-1.5 text-red-600 dark:text-red-400 hover:underline"
           >
             <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse flex-shrink-0" />
-            {criticalOpen} {criticalOpen === 1 ? 'zadanie CRITICAL' : 'zadania CRITICAL'}
+            {criticalOpen} {criticalOpen === 1 ? 'zadanie KRYTYCZNE' : 'zadania KRYTYCZNE'}
           </button>
         )}
         {urgentOpen > 0 && (
@@ -319,15 +334,16 @@ const SmartUrgencyRibbon: React.FC<UrgencyRibbonProps> = ({ tasks, onFilter, onD
             className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 hover:underline"
           >
             <span className="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0" />
-            {urgentOpen} {urgentOpen === 1 ? 'zadanie HIGH' : 'zadania HIGH'} (≤30 dni)
+            {urgentOpen} {urgentOpen === 1 ? 'zadanie PILNE' : 'zadania PILNE'} (≤30 dni)
           </button>
         )}
         <span className="text-slate-400 text-[10px]">— kliknij aby przefiltrować</span>
       </div>
+      {/* X zwija ribbon do pigułki zamiast całkowicie usuwać */}
       <button
-        onClick={onDismiss}
+        onClick={onCollapse}
         className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 flex-shrink-0 p-1 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
-        title="Ukryj alerty"
+        title="Zwiń alerty"
       >
         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
@@ -347,11 +363,22 @@ const ChecklistDashboard: React.FC = () => {
 
   const [activeSection, setActiveSection] = useState<TaskSection>(TaskSection.PREPARATORY);
   const [activeIndustry, setActiveIndustry] = useState<string | null>(bulkTasks ? Object.keys(bulkTasks)[0] : null);
+
+  // Sync activeIndustry gdy bulkTasks się zmienia (po zakończeniu bulk generation)
+  useEffect(() => {
+    if (bulkTasks && Object.keys(bulkTasks).length > 0) {
+      setActiveIndustry(prev =>
+        prev && bulkTasks[prev] ? prev : Object.keys(bulkTasks)[0]
+      );
+    } else if (!bulkTasks) {
+      setActiveIndustry(null);
+    }
+  }, [bulkTasks]);
   const [showExportSettings, setShowExportSettings] = useState(false);
   const [showConnectionModal, setShowConnectionModal] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
-  const [ribbonDismissed, setRibbonDismissed] = useState(false);
+  const [ribbonCollapsed, setRibbonCollapsed] = useState(false);
   const [urgencyFilter, setUrgencyFilter] = useState<'critical' | 'urgent' | null>(null);
 
   const tasksRef = useRef<HTMLDivElement>(null);
@@ -415,10 +442,10 @@ const ChecklistDashboard: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 px-4 py-4 w-full items-start">
+    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-8 px-4 py-4 w-full items-start overflow-x-hidden">
 
       {/* ── LEWA KOLUMNA ─────────────────────────────────────────────── */}
-      <div className="lg:col-span-3 space-y-6 lg:sticky lg:top-24">
+      <div className="md:col-span-3 lg:col-span-3 space-y-6 md:sticky md:top-24 lg:sticky lg:top-24">
         {hasTasks && showClientManager && <ClientManager />}
 
         <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 transition-colors">
@@ -476,7 +503,7 @@ const ChecklistDashboard: React.FC = () => {
       </div>
 
       {/* ── ŚRODKOWA KOLUMNA ──────────────────────────────────────────── */}
-      <div ref={tasksRef} className="lg:col-span-6 space-y-6">
+      <div ref={tasksRef} className="md:col-span-9 lg:col-span-6 space-y-6">
         {!hasTasks ? (
           /* Inline formularz generowania */
           <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm">
@@ -489,14 +516,13 @@ const ChecklistDashboard: React.FC = () => {
           </div>
         ) : (
           <>
-            {/* Smart Urgency Ribbon */}
-            {!ribbonDismissed && (
-              <SmartUrgencyRibbon
-                tasks={currentTasks}
-                onFilter={handleUrgencyFilter}
-                onDismiss={() => { setRibbonDismissed(true); setUrgencyFilter(null); }}
-              />
-            )}
+            {/* Smart Urgency Ribbon — X zwija do pigułki, nie usuwa */}
+            <SmartUrgencyRibbon
+              tasks={currentTasks}
+              onFilter={handleUrgencyFilter}
+              isCollapsed={ribbonCollapsed}
+              onCollapse={() => { setRibbonCollapsed(prev => !prev); if (!ribbonCollapsed) setUrgencyFilter(null); }}
+            />
 
             {/* Nagłówek z przyciskiem zmiany profilu */}
             <div className="bg-white dark:bg-slate-900 p-5 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm flex items-center justify-between">
@@ -513,7 +539,7 @@ const ChecklistDashboard: React.FC = () => {
               {urgencyFilter ? (
                 <div className="flex items-center gap-2">
                   <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-lg ${urgencyFilter === 'critical' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-600'}`}>
-                    🔍 Filtr: {urgencyFilter === 'critical' ? 'CRITICAL' : 'HIGH ≤30dni'}
+                    🔍 Filtr: {urgencyFilter === 'critical' ? 'KRYTYCZNE' : 'PILNE ≤30dni'}
                   </span>
                   <button
                     onClick={() => setUrgencyFilter(null)}
@@ -562,7 +588,7 @@ const ChecklistDashboard: React.FC = () => {
       </div>
 
       {/* ── PRAWA KOLUMNA ─────────────────────────────────────────────── */}
-      <div className="lg:col-span-3 space-y-6 lg:sticky lg:top-24">
+      <div className="md:col-span-12 lg:col-span-3 space-y-6 lg:sticky lg:top-24">
         <RobotIntelligenceCenter />
         {hasTasks && <TaskSummaryWidget tasks={currentTasks} />}
 

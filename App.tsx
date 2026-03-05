@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { generateChecklistAI } from "./services/aiService";
 import { ChecklistProvider, useChecklist } from './context/ChecklistContext';
 import LandingPage from './components/LandingPage';
 import OnboardingForm from './components/OnboardingForm';
@@ -35,10 +36,16 @@ const Main: React.FC = () => {
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
+  // Przykład użycia AI do generowania checklisty (do wstawienia w odpowiednim miejscu, np. po kliknięciu przycisku)
+  // async function handleGenerateChecklist(userPrompt) {
+  //   const aiResult = await generateChecklistAI(userPrompt);
+  //   setChecklist(aiResult);
+  // }
+
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'} font-sans flex flex-col selection:bg-blue-100`}>
       <BulkProgressModal />
-      
+
       <header className={`border-b sticky top-0 z-50 transition-colors duration-300 print:hidden ${isDarkMode ? 'bg-slate-900 border-slate-800 shadow-2xl shadow-black/20' : 'bg-white border-slate-200'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center space-x-4 group cursor-pointer" onClick={handleLogoClick}>
@@ -54,17 +61,17 @@ const Main: React.FC = () => {
               <span className={`text-[9px] font-bold block uppercase tracking-tight ${isDarkMode ? 'text-slate-400' : 'text-punchline-gray'}`}>Automatyzacja KSeF dla biur rachunkowych | powered by PunchlineROI.com</span>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             {!hasContent && view !== 'landing' && view !== 'faq' && view !== 'punchline' && view !== 'reference' && (
               <div className={`p-1 rounded-2xl flex transition-colors ${isDarkMode ? 'bg-slate-800' : 'bg-slate-100'}`}>
-                <button 
+                <button
                   onClick={() => setView('single')}
                   className={`px-4 py-2 rounded-xl text-xs font-black transition-all ${view === 'single' ? (isDarkMode ? 'bg-slate-700 text-blue-400 shadow-lg' : 'bg-white shadow-sm text-punchline-blue') : 'text-slate-500'}`}
                 >
                   POJEDYNCZA
                 </button>
-                <button 
+                <button
                   onClick={() => setView('bulk')}
                   className={`px-4 py-2 rounded-xl text-xs font-black transition-all ${view === 'bulk' ? (isDarkMode ? 'bg-slate-700 text-blue-400 shadow-lg' : 'bg-white shadow-sm text-punchline-blue') : 'text-slate-500'}`}
                 >
@@ -73,7 +80,7 @@ const Main: React.FC = () => {
               </div>
             )}
 
-            <button 
+            <button
               onClick={toggleTheme}
               className={`p-3 rounded-2xl transition-all border-2 ${isDarkMode ? 'bg-slate-800 border-slate-700 text-yellow-400 hover:border-yellow-400/50' : 'bg-slate-100 border-slate-200 text-slate-600 hover:border-slate-300'}`}
               aria-label="Toggle Theme"
@@ -87,19 +94,19 @@ const Main: React.FC = () => {
           </div>
 
           <div className="hidden lg:flex items-center space-x-6 text-xs font-black text-slate-400 uppercase tracking-widest">
-            <button 
+            <button
               onClick={() => setView('reference')}
               className={`transition-colors flex items-center space-x-2 ${view === 'reference' ? 'text-punchline-blue' : 'hover:text-punchline-blue'}`}
             >
               <span>DOKUMENTACJA</span>
             </button>
-            <button 
+            <button
               onClick={() => setView('punchline')}
               className={`transition-colors flex items-center space-x-2 ${view === 'punchline' ? 'text-punchline-blue' : 'hover:text-punchline-blue'}`}
             >
               <span>PUNCHLINE</span>
             </button>
-            <button 
+            <button
               onClick={() => setView('faq')}
               className={`transition-colors flex items-center space-x-2 ${view === 'faq' ? 'text-punchline-blue' : 'hover:text-punchline-blue'}`}
             >
@@ -164,7 +171,7 @@ const Main: React.FC = () => {
               KSEF 2.0 COMPLIANCE SYSTEM powered by PunchlineROI.com
             </p>
             <p className={`text-[10px] font-medium ${isDarkMode ? 'text-slate-500' : 'text-slate-500'}`}>
-              &copy; 2025 PunchlineROI - AI Automation Agency | Oficjalne dane MF 2026
+              &copy; {new Date().getFullYear()} PunchlineROI - AI Automation Agency | Oficjalne dane MF {new Date().getFullYear()}
             </p>
           </div>
         </div>

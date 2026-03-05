@@ -52,7 +52,7 @@ const TaskSummaryWidget: React.FC<TaskSummaryWidgetProps> = ({ tasks }) => {
         <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Status Wdrożenia</h4>
         <div className="flex items-center space-x-1 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg border border-green-100 dark:border-green-800">
           <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-          <span className="text-[9px] font-black text-green-600 dark:text-green-400 uppercase">Active</span>
+          <span className="text-[9px] font-black text-green-600 dark:text-green-400 uppercase">Aktywny</span>
         </div>
       </div>
 

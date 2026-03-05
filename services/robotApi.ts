@@ -37,9 +37,15 @@ async function fetchWithRetry(url: string, options: RequestInit = {}, retries = 
 
 export const robotApi = {
   async getStatus(): Promise<RobotStatus> {
-    const res = await fetch(`${ROBOT_API_BASE}/api/stats`); 
-    if (!res.ok) throw new Error('Robot offline');
-    return res.json();
+    try {
+      const res = await fetchWithRetry(`${ROBOT_API_BASE}/api/stats`, {}, 2, 500);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn(`[RobotAPI] getStatus OFFLINE — URL: ${ROBOT_API_BASE}/api/stats — Powód: ${msg}`);
+      throw err;
+    }
   },
 
   async getLogs() {

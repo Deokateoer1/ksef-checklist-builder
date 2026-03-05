@@ -28,12 +28,30 @@ const SUGGESTED_QUESTIONS = [
 ];
 
 const renderText = (text: string): React.ReactNode => {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i}>{part.slice(2, -2)}</strong>;
+  const lines = text.split('\n');
+  return lines.map((line, lineIndex) => {
+    // Nagłówki markdown ### ## # → pogrubiony tekst (bez symboli #)
+    const headerMatch = line.match(/^#{1,3}\s+(.+)$/);
+    if (headerMatch) {
+      return (
+        <React.Fragment key={lineIndex}>
+          {lineIndex > 0 && <br />}
+          <strong style={{ display: 'inline', fontWeight: 900 }}>{headerMatch[1]}</strong>
+        </React.Fragment>
+      );
     }
-    return part;
+    // Inline bold **tekst**
+    const parts = line.split(/(\*\*[^*]+\*\*)/g);
+    return (
+      <React.Fragment key={lineIndex}>
+        {lineIndex > 0 && <br />}
+        {parts.map((part, i) =>
+          part.startsWith('**') && part.endsWith('**')
+            ? <strong key={i}>{part.slice(2, -2)}</strong>
+            : part
+        )}
+      </React.Fragment>
+    );
   });
 };
 
@@ -41,8 +59,9 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
   const { profile } = useChecklist();
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState('');
-  const [isDeepSearch, setIsDeepSearch] = useState(false);
-  const [aiMode, setAiMode] = useState<'technical' | 'business'>('technical');
+  const [isDeepSearch, setIsDeepSearch] = useState<boolean>(() => localStorage.getItem('ksef_chat_aiMode') === 'true');
+  const [aiMode, setAiMode] = useState<'technical' | 'business'>(() => (localStorage.getItem('ksef_chat_subMode') as 'technical' | 'business') || 'technical');
+  const [isMinimized, setIsMinimized] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -63,6 +82,16 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
+
+  // Persist AI toggle state to localStorage
+  useEffect(() => {
+    localStorage.setItem('ksef_chat_aiMode', isDeepSearch ? 'true' : 'false');
+  }, [isDeepSearch]);
+
+  // Persist AI sub-mode (techniczny/biznesowy) to localStorage
+  useEffect(() => {
+    localStorage.setItem('ksef_chat_subMode', aiMode);
+  }, [aiMode]);
 
   const sendMessage = async (text: string) => {
     if (!text.trim() || isTyping) return;
@@ -85,8 +114,18 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
           }, 1000);
         }
       }
-    } catch (err) {
-      setMessages(prev => [...prev, { role: 'bot', text: 'Wystąpił błąd komunikacji. Spróbuj ponownie za chwilę.' }]);
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      let userMessage = '❌ Wystąpił błąd komunikacji. Spróbuj ponownie za chwilę.';
+      if (errorMsg.includes('API_KEY_INVALID') || errorMsg.includes('401') || errorMsg.includes('403') || errorMsg.includes('API key')) {
+        userMessage = '❌ AI nieaktywne — brak lub błędna konfiguracja klucza API. Przełącz na tryb Offline (baza wiedzy nadal działa).';
+      } else if (errorMsg.includes('429') || errorMsg.includes('quota') || errorMsg.includes('RESOURCE_EXHAUSTED')) {
+        userMessage = '⏳ Limit zapytań AI wyczerpany. Poczekaj chwilę i spróbuj ponownie, lub przełącz na tryb Offline.';
+      } else if (errorMsg.includes('NetworkError') || errorMsg.includes('Failed to fetch') || errorMsg.includes('network')) {
+        userMessage = '📡 Brak połączenia z AI. Bot automatycznie przełączony w tryb Offline (baza wiedzy).';
+        setIsDeepSearch(false);
+      }
+      setMessages(prev => [...prev, { role: 'bot', text: userMessage }]);
     } finally {
       setIsTyping(false);
     }
@@ -100,7 +139,7 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
   };
 
   const handleSuggestionClick = (question: string) => {
-    sendMessage(question);
+    void sendMessage(question);
   };
 
   const handleClear = () => {
@@ -110,7 +149,7 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 w-[450px] max-w-[calc(100vw-3rem)] h-[750px] max-h-[calc(100vh-6rem)] bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col z-[150] animate-in slide-in-from-bottom-8 duration-500 overflow-hidden ring-1 ring-black/5">
+    <div className={`fixed bottom-6 right-6 w-[450px] max-w-[calc(100vw-3rem)] bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col z-[150] animate-in slide-in-from-bottom-8 duration-500 ring-1 ring-black/5 transition-all duration-300 ${isMinimized ? 'h-auto overflow-visible' : 'h-[750px] max-h-[calc(100vh-6rem)] overflow-hidden'}`}>
       {/* Header */}
       <div className="bg-slate-900 dark:bg-black p-6 text-white flex items-center justify-between shadow-xl relative z-20">
         <div className="flex items-center space-x-4">
@@ -137,6 +176,22 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {/* Minimize / Expand button */}
+          <button
+            onClick={() => setIsMinimized(prev => !prev)}
+            title={isMinimized ? 'Rozwiń czat' : 'Minimalizuj czat'}
+            className="p-2.5 hover:bg-white/10 rounded-2xl transition-colors"
+          >
+            {isMinimized ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
+              </svg>
+            )}
+          </button>
           {/* Clear history button */}
           <button
             onClick={handleClear}
@@ -156,8 +211,8 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
         </div>
       </div>
 
-      {/* Mode Switcher */}
-      <div className="bg-slate-50 dark:bg-slate-800/80 p-4 border-b border-slate-100 dark:border-slate-800 flex flex-col gap-3 shadow-inner">
+      {/* Mode Switcher — ukryty gdy zminimalizowany */}
+      {!isMinimized && <div className="bg-slate-50 dark:bg-slate-800/80 p-4 border-b border-slate-100 dark:border-slate-800 flex flex-col gap-3 shadow-inner">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3 ml-1">
             <div className={`w-3 h-3 rounded-full ${isDeepSearch ? 'bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.6)]' : 'bg-slate-400'}`}></div>
@@ -192,9 +247,10 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
             </button>
           </div>
         )}
-      </div>
+      </div>}
 
-      {/* Messages Area */}
+      {/* Messages Area — ukryty gdy zminimalizowany */}
+      {!isMinimized && <>
       <div className="flex-grow overflow-y-auto p-6 space-y-6 bg-white dark:bg-slate-950">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2`}>
@@ -208,7 +264,7 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
                   ? 'bg-slate-900 dark:bg-blue-600 text-white rounded-tr-none'
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-50 border border-slate-200 dark:border-slate-700 rounded-tl-none'
               }`}>
-                <div className="whitespace-pre-wrap">{renderText(m.text)}</div>
+                <div>{renderText(m.text)}</div>
               </div>
             )}
           </div>
@@ -275,6 +331,7 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
           {isDeepSearch ? 'Połączenie szyfrowane (Gemini 3 Pro)' : 'Działasz w trybie prywatnym (Offline)'}
         </p>
       </div>
+      </>}
     </div>
   );
 };

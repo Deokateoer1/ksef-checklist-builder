@@ -29,8 +29,8 @@ const ComplianceRadar: React.FC<ComplianceRadarProps> = ({ tasks }) => {
   return (
     <div className="bg-white p-6 rounded-[2.5rem] border-2 border-slate-100 shadow-xl mb-8">
       <div className="flex items-center justify-between mb-6">
-        <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Production Compliance Radar</h4>
-        <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-full border border-blue-100">STATUS v2.0</span>
+        <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Radar Zgodności KSeF</h4>
+        <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-full border border-blue-100">WERSJA 2.0</span>
       </div>
 
       <div className="space-y-4">

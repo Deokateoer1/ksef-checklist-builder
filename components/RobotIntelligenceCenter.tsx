@@ -3,6 +3,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { robotApi, RobotStatus } from '../services/robotApi';
 
+// Wyświetlana nazwa backendu — dla środowisk lokalnych przyjazna etykieta, dla produkcji surowy host
+const _rawApiUrl = import.meta.env.VITE_ROBOT_API_URL as string | undefined;
+const _isLocal = !_rawApiUrl || /localhost|127\.0\.0\.1/.test(_rawApiUrl);
+const ROBOT_API_DISPLAY = _isLocal
+  ? 'Robot-KSeF · API'
+  : _rawApiUrl.replace(/^https?:\/\//, '');
+
 interface RobotLog {
   id: number;
   text: string;
@@ -69,7 +76,7 @@ const RobotIntelligenceCenter: React.FC = () => {
               </svg>
             </div>
             <div>
-              <h4 className="text-base font-black tracking-tight leading-none">Compliance Center</h4>
+              <h4 className="text-base font-black tracking-tight leading-none">Centrum Zgodności</h4>
               <p className="text-[10px] font-bold text-emerald-100 uppercase tracking-widest mt-0.5">Robot Zwiadowca · v2.9</p>
             </div>
           </div>
@@ -80,7 +87,7 @@ const RobotIntelligenceCenter: React.FC = () => {
                 {statusLabel}
               </span>
             </div>
-            <span className="text-[9px] text-emerald-300 font-mono">localhost:8000</span>
+            <span className="text-[9px] text-emerald-300 font-mono">{ROBOT_API_DISPLAY}</span>
           </div>
         </div>
       </div>
@@ -170,8 +177,8 @@ const RobotIntelligenceCenter: React.FC = () => {
             {/* Panel header */}
             <div className="bg-emerald-600 p-6 text-white flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-black tracking-tight">Compliance Center</h3>
-                <p className="text-[10px] text-emerald-200 font-bold uppercase tracking-widest mt-0.5">Robot Zwiadowca · Backend Status</p>
+                <h3 className="text-lg font-black tracking-tight">Centrum Zgodności</h3>
+                <p className="text-[10px] text-emerald-200 font-bold uppercase tracking-widest mt-0.5">Robot Zwiadowca · Status Backendu</p>
               </div>
               <button
                 onClick={() => setIsPanelOpen(false)}
@@ -187,7 +194,7 @@ const RobotIntelligenceCenter: React.FC = () => {
               {/* Status tiles */}
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: 'Backend API', value: statusLabel, active: apiStatus === 'online', sub: 'localhost:8000' },
+                  { label: 'Backend API', value: statusLabel, active: apiStatus === 'online', sub: ROBOT_API_DISPLAY },
                   { label: 'KSeF Gateway', value: status?.ksef_connected ? 'POŁĄCZONY' : 'BRAK', active: !!status?.ksef_connected, sub: 'api.ksef.mf.gov.pl' },
                   { label: 'Faktury dziś', value: `${status?.processed_today ?? 0} szt.`, active: (status?.processed_today ?? 0) > 0, sub: 'przetworzone' },
                   { label: 'Robot Engine', value: 'v2.9', active: apiStatus === 'online', sub: 'PunchlineROI' },

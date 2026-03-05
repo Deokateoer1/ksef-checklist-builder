@@ -5,11 +5,14 @@ import { searchFAQAdvanced } from "./faqSearch";
 // Model
 // ─────────────────────────────────────────────────────────────
 const MODEL_CHECKLIST = 'gemini-3.1-pro-preview';   // Gemini 3.1 Pro Preview — generowanie checklisty
-const MODEL_CHAT      = 'gemini-3.1-flash-preview';  // Gemini 3.1 Flash Preview — czat (szybszy)
+const MODEL_CHAT = 'gemini-3.1-flash-preview';  // Gemini 3.1 Flash Preview — czat (szybszy)
 
 // ─────────────────────────────────────────────────────────────
 // Proxy → backend (klucz API bezpieczny po stronie serwera)
 // ─────────────────────────────────────────────────────────────
+
+// Użycie VITE_GEMINI_API_KEY zamiast GEMINI_API_KEY
+// (jeśli gdziekolwiek byłoby użycie GEMINI_API_KEY, zamień na VITE_GEMINI_API_KEY)
 const BACKEND_URL = import.meta.env.VITE_ROBOT_API_URL || 'http://localhost:8000';
 
 async function callGeminiProxy(
@@ -69,16 +72,16 @@ KONTEKST SYSTEMU:
 
 /** Mapowanie sekcji checklisty → zapytania do faqSearch */
 const SECTION_QUERIES: Record<string, string[]> = {
-  [TaskSection.PREPARATORY]:     ['od czego zacząć wdrożenie KSeF', 'zespół wdrożeniowy KSeF inwentaryzacja'],
-  [TaskSection.COMPLIANCE]:      ['przechowywanie faktur 10 lat archiwizacja', 'RODO faktury KSeF', 'ZAW-FA biuro rachunkowe'],
-  [TaskSection.ANALYSIS]:        ['walidacja NIP biała lista', 'audyt systemu fakturowania ERP'],
-  [TaskSection.TECHNICAL]:       ['token API autoryzacja KSeF', 'MCU uprawnienia certyfikat', 'różnica token pieczęć'],
-  [TaskSection.ERROR_HANDLING]:  ['błąd 21133 schemat walidacja', 'błąd 429 rate limit backoff', 'błąd 21132 uprawnienia'],
-  [TaskSection.TESTS]:           ['środowisko demo test KSeF', 'testy integracyjne FA3'],
-  [TaskSection.EMERGENCY]:       ['tryb awaryjny Offline24', 'kod QR SHA-256 offline', 'procedura awaryjna 24h'],
-  [TaskSection.DEPLOYMENT]:      ['UPO write-back ERP numer KSeF', 'JPK_VAT numer KSeF obowiązek'],
-  [TaskSection.MONITORING]:      ['JPK nowe oznaczenia 2026 OFF BFK', 'monitorowanie zmian API'],
-  [TaskSection.COST_CALCULATION]:['koszty KSeF certyfikat pieczęć', 'czy KSeF jest płatny'],
+  [TaskSection.PREPARATORY]: ['od czego zacząć wdrożenie KSeF', 'zespół wdrożeniowy KSeF inwentaryzacja'],
+  [TaskSection.COMPLIANCE]: ['przechowywanie faktur 10 lat archiwizacja', 'RODO faktury KSeF', 'ZAW-FA biuro rachunkowe'],
+  [TaskSection.ANALYSIS]: ['walidacja NIP biała lista', 'audyt systemu fakturowania ERP'],
+  [TaskSection.TECHNICAL]: ['token API autoryzacja KSeF', 'MCU uprawnienia certyfikat', 'różnica token pieczęć'],
+  [TaskSection.ERROR_HANDLING]: ['błąd 21133 schemat walidacja', 'błąd 429 rate limit backoff', 'błąd 21132 uprawnienia'],
+  [TaskSection.TESTS]: ['środowisko demo test KSeF', 'testy integracyjne FA3'],
+  [TaskSection.EMERGENCY]: ['tryb awaryjny Offline24', 'kod QR SHA-256 offline', 'procedura awaryjna 24h'],
+  [TaskSection.DEPLOYMENT]: ['UPO write-back ERP numer KSeF', 'JPK_VAT numer KSeF obowiązek'],
+  [TaskSection.MONITORING]: ['JPK nowe oznaczenia 2026 OFF BFK', 'monitorowanie zmian API'],
+  [TaskSection.COST_CALCULATION]: ['koszty KSeF certyfikat pieczęć', 'czy KSeF jest płatny'],
   [TaskSection.RISK_ASSESSMENT]: ['kara 100% VAT niewystawienie faktury', 'okres przejściowy bez kar 2026', 'odpowiedzialność zarząd IT'],
 };
 
@@ -194,18 +197,18 @@ function parseAndValidateTasks(raw: string | null | undefined): ChecklistTask[] 
       : TaskSection.PREPARATORY;
 
     return {
-      id:             String(item.id ?? `task_${idx + 1}`),
-      title:          String(item.title ?? 'Zadanie bez tytułu'),
-      description:    String(item.description ?? ''),
+      id: String(item.id ?? `task_${idx + 1}`),
+      title: String(item.title ?? 'Zadanie bez tytułu'),
+      description: String(item.description ?? ''),
       priority,
       section,
-      deadlineDays:   Number(item.deadlineDays) || 30,
+      deadlineDays: Number(item.deadlineDays) || 30,
       estimatedHours: Number(item.estimatedHours) || 2,
-      dependencies:   Array.isArray(item.dependencies) ? item.dependencies.map(String) : [],
-      completed:      Boolean(item.completed ?? false),
-      automatable:    Boolean(item.automatable ?? false),
-      robotFunction:  item.robotFunction ? String(item.robotFunction) : undefined,
-      notes:          item.notes ? String(item.notes) : undefined,
+      dependencies: Array.isArray(item.dependencies) ? item.dependencies.map(String) : [],
+      completed: Boolean(item.completed ?? false),
+      automatable: Boolean(item.automatable ?? false),
+      robotFunction: item.robotFunction ? String(item.robotFunction) : undefined,
+      notes: item.notes ? String(item.notes) : undefined,
     };
   });
 
