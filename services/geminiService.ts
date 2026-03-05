@@ -4,8 +4,8 @@ import { searchFAQAdvanced } from "./faqSearch";
 // ─────────────────────────────────────────────────────────────
 // Model
 // ─────────────────────────────────────────────────────────────
-const MODEL_CHECKLIST = 'gemini-3.1-pro-preview';   // Gemini 3.1 Pro Preview — generowanie checklisty
-const MODEL_CHAT = 'gemini-3.1-flash-preview';  // Gemini 3.1 Flash Preview — czat (szybszy)
+const MODEL_CHECKLIST = 'gemini-3-pro-preview';     // Gemini 3.0 Pro Preview — generowanie checklisty
+const MODEL_CHAT = 'gemini-3-flash-preview';        // Gemini 3.0 Flash Preview — czat (szybszy)
 
 // ─────────────────────────────────────────────────────────────
 // Proxy → backend (klucz API bezpieczny po stronie serwera)
