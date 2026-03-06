@@ -8,12 +8,21 @@
 [functions.gemini]
   timeout = 60
 
+# Gemini — Netlify Function (niezalezna od Robot-KSeF)
 [[redirects]]
   from = "/api/gemini"
   to = "/.netlify/functions/gemini"
   status = 200
   force = true
 
+# Command Center — proxy do Robot-KSeF przez nginx app.punchlineroi.com
+[[redirects]]
+  from = "/api/*"
+  to = "https://app.punchlineroi.com/api/:splat"
+  status = 200
+  force = true
+
+# React Router SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
