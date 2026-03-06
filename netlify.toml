@@ -1,9 +1,10 @@
 [build]
   publish = "dist"
+  functions = "netlify/functions"
 
 [[redirects]]
-  from = "/api/*"
-  to = "https://app.punchlineroi.com/api/:splat"
+  from = "/api/gemini"
+  to = "/.netlify/functions/gemini"
   status = 200
   force = true
 
