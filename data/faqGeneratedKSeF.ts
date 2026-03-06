@@ -1393,7 +1393,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1118",
@@ -1417,7 +1419,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1120",
@@ -1477,7 +1481,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1125",
@@ -1489,7 +1495,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1126",
@@ -1501,7 +1509,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1127",
@@ -1513,7 +1523,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1128",
@@ -1549,7 +1561,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1131",
@@ -1573,7 +1587,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1133",
@@ -1585,7 +1601,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1134",
@@ -1597,7 +1615,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1135",
@@ -1633,7 +1653,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1138",
@@ -1657,7 +1679,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "audytor",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1140",
@@ -1681,7 +1705,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1142",
@@ -1693,7 +1719,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1143",
@@ -1753,7 +1781,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1148",
@@ -1789,7 +1819,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1151",
@@ -1969,7 +2001,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1166",
@@ -1981,7 +2015,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1167",
@@ -2065,7 +2101,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1174",
@@ -2077,7 +2115,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1175",
@@ -2089,7 +2129,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1176",
@@ -2197,7 +2239,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1185",
@@ -2245,7 +2289,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1189",
@@ -2353,7 +2399,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1198",
@@ -2461,7 +2509,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1208",
@@ -2473,7 +2523,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1209",
@@ -2557,7 +2609,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1216",
@@ -2569,7 +2623,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1217",
@@ -2593,7 +2649,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1219",
@@ -2605,7 +2663,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1220",
@@ -2641,7 +2701,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1223",
@@ -2665,7 +2727,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1225",
@@ -2929,7 +2993,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1248",
@@ -2953,7 +3019,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1250",
@@ -3025,7 +3093,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1256",
@@ -3049,7 +3119,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1258",
@@ -3145,7 +3217,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1266",
@@ -3169,7 +3243,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1268",
@@ -3337,7 +3413,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1282",
@@ -3349,7 +3427,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "FAQ-KSeF"
+    source: "FAQ-KSeF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1283",
@@ -3733,7 +3813,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1315",
@@ -3781,7 +3863,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1319",
@@ -3937,7 +4021,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1332",
@@ -3961,7 +4047,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1334",
@@ -3973,7 +4061,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1335",
@@ -4009,7 +4099,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1338",
@@ -4417,7 +4509,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1372",
@@ -4429,7 +4523,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1373",
@@ -4441,7 +4537,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1374",
@@ -4453,7 +4551,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1375",
@@ -4465,7 +4565,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1376",
@@ -4477,7 +4579,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1377",
@@ -4489,7 +4593,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r"
+    source: "Objaśnienia_podatkowe_z_28_stycznia_2026_r",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1378",
@@ -4753,7 +4859,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1403",
@@ -4849,7 +4957,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1411",
@@ -4873,7 +4983,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1413",
@@ -4897,7 +5009,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1415",
@@ -4909,7 +5023,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1416",
@@ -4921,7 +5037,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1417",
@@ -4945,7 +5063,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "audytor",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1424",
@@ -4969,7 +5089,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1427",
@@ -5017,7 +5139,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1434",
@@ -5029,7 +5153,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1435",
@@ -5041,7 +5167,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1436",
@@ -5053,7 +5181,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1437",
@@ -5077,7 +5207,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1439",
@@ -5161,7 +5293,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1460",
@@ -5257,7 +5391,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1470",
@@ -5293,7 +5429,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1474",
@@ -5353,7 +5491,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1482",
@@ -5461,7 +5601,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1492",
@@ -5473,7 +5615,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1493",
@@ -5509,7 +5653,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1498",
@@ -5533,7 +5679,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1500",
@@ -5569,7 +5717,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1503",
@@ -5593,7 +5743,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1505",
@@ -5869,7 +6021,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1528",
@@ -5917,7 +6071,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1534",
@@ -5977,7 +6133,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1540",
@@ -6169,7 +6327,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "Pytania i odpowiedzi KSEF"
+    source: "Pytania i odpowiedzi KSEF",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_1564",
@@ -12997,7 +13157,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2151",
@@ -13033,7 +13195,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2154",
@@ -13045,7 +13209,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2155",
@@ -13081,7 +13247,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2158",
@@ -13093,7 +13261,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2159",
@@ -13105,7 +13275,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2160",
@@ -13117,7 +13289,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2161",
@@ -13129,7 +13303,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2162",
@@ -13153,7 +13329,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2164",
@@ -13177,7 +13355,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2166",
@@ -13213,7 +13393,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2169",
@@ -13249,7 +13431,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2173",
@@ -13321,7 +13505,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "faqBazawiedzy"
+    source: "faqBazawiedzy",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2181",
@@ -13465,7 +13651,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2197",
@@ -13717,7 +13905,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2221",
@@ -13741,7 +13931,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2223",
@@ -13753,7 +13945,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2224",
@@ -13789,7 +13983,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2227",
@@ -13897,7 +14093,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2236",
@@ -14449,7 +14647,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2282",
@@ -14869,7 +15069,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2318",
@@ -14941,7 +15143,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "IT",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2324",
@@ -15085,7 +15289,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "ksef-w-pigulce"
+    source: "ksef-w-pigulce",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2337",
@@ -15517,7 +15723,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2375",
@@ -15577,7 +15785,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2381",
@@ -15817,7 +16027,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2402",
@@ -15829,7 +16041,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2403",
@@ -15841,7 +16055,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2404",
@@ -15973,7 +16189,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2415",
@@ -16081,7 +16299,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2425",
@@ -16141,7 +16361,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2430",
@@ -16165,7 +16387,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2432",
@@ -16189,7 +16413,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2434",
@@ -16225,7 +16451,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2437",
@@ -16309,7 +16537,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2444",
@@ -16321,7 +16551,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2445",
@@ -16393,7 +16625,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2452",
@@ -16537,7 +16771,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2465",
@@ -17833,7 +18069,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2580",
@@ -17869,7 +18107,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2583",
@@ -17881,7 +18121,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2584",
@@ -17905,7 +18147,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2586",
@@ -17953,7 +18197,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2590",
@@ -17977,7 +18223,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2592",
@@ -18229,7 +18477,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2613",
@@ -18253,7 +18503,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2615",
@@ -18613,7 +18865,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2645",
@@ -18637,7 +18891,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-i-rozpoczecie-korzystania-z-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2647",
@@ -19213,7 +19469,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2695",
@@ -19633,7 +19891,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2732",
@@ -19657,7 +19917,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2734",
@@ -19717,7 +19979,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2739",
@@ -19729,7 +19993,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2740",
@@ -19765,7 +20031,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2743",
@@ -19789,7 +20057,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2745",
@@ -19837,7 +20107,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2749",
@@ -19861,7 +20133,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2751",
@@ -19873,7 +20147,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2752",
@@ -19897,7 +20173,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2754",
@@ -19909,7 +20187,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2755",
@@ -19921,7 +20201,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2756",
@@ -19945,7 +20227,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2758",
@@ -19981,7 +20265,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2761",
@@ -20017,7 +20303,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2764",
@@ -20041,7 +20329,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2766",
@@ -20065,7 +20355,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2768",
@@ -20089,7 +20381,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2770",
@@ -20161,7 +20455,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2776",
@@ -20197,7 +20493,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2780",
@@ -20689,7 +20987,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2823",
@@ -20893,7 +21193,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2842",
@@ -21289,7 +21591,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2875",
@@ -22477,7 +22781,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2974",
@@ -22501,7 +22807,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2976",
@@ -22513,7 +22821,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2977",
@@ -22549,7 +22859,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2980",
@@ -22561,7 +22873,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2981",
@@ -22573,7 +22887,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "audytor",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2982",
@@ -22729,7 +23045,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2995",
@@ -22753,7 +23071,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2997",
@@ -22765,7 +23085,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_2998",
@@ -23149,7 +23471,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3031",
@@ -23317,7 +23641,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-ii-wystawianie-i-otrzymywanie-faktur-w-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3047",
@@ -24145,7 +24471,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3125",
@@ -25129,7 +25457,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3207",
@@ -25165,7 +25495,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3210",
@@ -25201,7 +25533,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3213",
@@ -25213,7 +25547,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3214",
@@ -25273,7 +25609,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3219",
@@ -25417,7 +25755,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "IT",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3233",
@@ -25465,7 +25805,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3237",
@@ -25537,7 +25879,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3244",
@@ -25621,7 +25965,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3251",
@@ -25753,7 +26099,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3266",
@@ -26017,7 +26365,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3292",
@@ -26029,7 +26379,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3293",
@@ -26041,7 +26393,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3294",
@@ -26053,7 +26407,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3295",
@@ -26065,7 +26421,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3296",
@@ -26077,7 +26435,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3297",
@@ -26173,7 +26533,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3305",
@@ -26521,7 +26883,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3335",
@@ -26689,7 +27053,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3349",
@@ -26893,7 +27259,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3366",
@@ -26941,7 +27309,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3370",
@@ -26953,7 +27323,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3371",
@@ -27025,7 +27397,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3377",
@@ -27037,7 +27411,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3378",
@@ -27061,7 +27437,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026"
+    source: "podrecznik-ksef-20-czesc-iii-dodatkowe-funkcjonalnosci-ksef-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3380",
@@ -27445,7 +27823,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3412",
@@ -27457,7 +27837,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3413",
@@ -27481,7 +27863,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3415",
@@ -27589,7 +27973,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3424",
@@ -27733,7 +28119,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3436",
@@ -28021,7 +28409,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3460",
@@ -28033,7 +28423,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3461",
@@ -28057,7 +28449,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3463",
@@ -28069,7 +28463,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3464",
@@ -28093,7 +28489,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3466",
@@ -28393,7 +28791,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3491",
@@ -28465,7 +28865,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3498",
@@ -28621,7 +29023,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3511",
@@ -28633,7 +29037,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3512",
@@ -28693,7 +29099,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026"
+    source: "podrecznik-ksef-20-czesc-iv-ksef-w-jst-i-gv-oraz-pozostale-modele-uprawnien-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3517",
@@ -28909,7 +29317,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3541",
@@ -28921,7 +29331,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3542",
@@ -29005,7 +29417,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3550",
@@ -29017,7 +29431,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3551",
@@ -29029,7 +29445,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3552",
@@ -29113,7 +29531,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3560",
@@ -29137,7 +29557,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3562",
@@ -29293,7 +29715,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3576",
@@ -29437,7 +29861,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3590",
@@ -29785,7 +30211,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3622",
@@ -29977,7 +30405,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3639",
@@ -30145,7 +30575,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3657",
@@ -30157,7 +30589,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3658",
@@ -30289,7 +30723,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3669",
@@ -30301,7 +30737,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3670",
@@ -30313,7 +30751,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3671",
@@ -30325,7 +30765,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3672",
@@ -30337,7 +30779,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3673",
@@ -30361,7 +30805,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "IT",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3675",
@@ -30385,7 +30831,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3677",
@@ -30397,7 +30845,9 @@ export const FAQ_GENERATED_KSEF = [
     difficulty: "intermediate",
     audience: "wszyscy",
     relatedTopics: [],
-    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026"
+    source: "podrecznik-ksef-w-organizacjach-pozarzadowych-v10-19022026",
+    riskLevel: 'info_only',
+    verifiedBy: 'auto'
   },
   {
     id: "GEN_3678",

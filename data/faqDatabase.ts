@@ -1,5 +1,6 @@
 
 import { FAQ_GENERATED_KSEF } from './faqGeneratedKSeF';
+import { FAQ_BR_PROCESY } from './faq_biura_procesy';
 
 export type FAQAudience = 'ksiegowy' | 'IT' | 'menedzer' | 'audytor' | 'wszyscy';
 export type FAQDifficulty = 'beginner' | 'intermediate' | 'advanced' | 'expert';
@@ -16,6 +17,12 @@ export interface FAQItem {
   audience: FAQAudience;
   relatedTopics: string[];
   source: string;
+  // ── Governance / prawo (opcjonalne) ──────────────────────────────────────
+  effectiveFrom?: string;       // ISO date, np. "2025-07-05"
+  lastReviewedAt?: string;      // ISO date; na start = data migracji
+  legalSourceType?: 'ustawa' | 'rozporządzenie' | 'MF_objaśnienia' | 'interpretacja' | 'praktyka';
+  riskLevel?: 'legal_mandatory' | 'recommended' | 'info_only';
+  verifiedBy?: 'human' | 'auto';
 }
 
 export const FAQ_DATABASE: FAQItem[] = [
@@ -246,7 +253,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: ["FAQ_1_001"],
-    source: "ustawa_vat"
+    source: "ustawa_vat",
+    effectiveFrom: "2027-01-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'ustawa',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_10_002",
@@ -258,7 +270,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "advanced",
     audience: "menedzer",
     relatedTopics: [],
-    source: "praktyka"
+    source: "praktyka",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'praktyka',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_11_001",
@@ -308,7 +325,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "beginner",
     audience: "menedzer",
     relatedTopics: [],
-    source: "Rozporządzenie MF"
+    source: "Rozporządzenie MF",
+    effectiveFrom: "2025-12-07",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'rozporządzenie',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_002",
@@ -320,7 +342,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "ksiegowy",
     relatedTopics: ["FAQ_EXT_010"],
-    source: "Rozporządzenie MF"
+    source: "Rozporządzenie MF",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'rozporządzenie',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_003",
@@ -332,7 +359,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "beginner",
     audience: "menedzer",
     relatedTopics: ["FAQ_EXT_006"],
-    source: "Interpretacja MF"
+    source: "Interpretacja MF",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'interpretacja',
+    riskLevel: 'info_only',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_004",
@@ -344,7 +376,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "beginner",
     audience: "menedzer",
     relatedTopics: [],
-    source: "Rozporządzenie MF"
+    source: "Rozporządzenie MF",
+    effectiveFrom: "2025-12-07",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'rozporządzenie',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_005",
@@ -356,7 +393,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: [],
-    source: "Ustawa o VAT"
+    source: "Ustawa o VAT",
+    effectiveFrom: "2027-01-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'ustawa',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_006",
@@ -368,7 +410,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "beginner",
     audience: "menedzer",
     relatedTopics: ["FAQ_EXT_003"],
-    source: "Interpretacja MF"
+    source: "Interpretacja MF",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'interpretacja',
+    riskLevel: 'info_only',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_007",
@@ -380,7 +427,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: [],
-    source: "Interpretacja MF"
+    source: "Interpretacja MF",
+    effectiveFrom: "2027-01-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'interpretacja',
+    riskLevel: 'recommended',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_008",
@@ -392,7 +444,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "ksiegowy",
     relatedTopics: ["FAQ_EXT_023"],
-    source: "Ustawa o VAT"
+    source: "Ustawa o VAT",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'ustawa',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_009",
@@ -524,7 +581,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: ["FAQ_10_002"],
-    source: "Ordynacja podatkowa"
+    source: "Ordynacja podatkowa",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'ustawa',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_020",
@@ -536,7 +598,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: ["FAQ_EXT_019"],
-    source: "Ordynacja podatkowa"
+    source: "Ordynacja podatkowa",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'ustawa',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_021",
@@ -548,7 +615,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "advanced",
     audience: "menedzer",
     relatedTopics: [],
-    source: "Praktyka"
+    source: "Praktyka",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'praktyka',
+    riskLevel: 'recommended',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_022",
@@ -560,7 +632,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: [],
-    source: "TSUE"
+    source: "TSUE",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'interpretacja',
+    riskLevel: 'recommended',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_023",
@@ -572,7 +649,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "beginner",
     audience: "menedzer",
     relatedTopics: [],
-    source: "Rozporządzenie MF"
+    source: "Rozporządzenie MF",
+    effectiveFrom: "2025-12-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'rozporządzenie',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_024",
@@ -584,7 +666,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "beginner",
     audience: "ksiegowy",
     relatedTopics: [],
-    source: "Rozporządzenie MF"
+    source: "Rozporządzenie MF",
+    effectiveFrom: "2025-12-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'rozporządzenie',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_025",
@@ -596,7 +683,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "intermediate",
     audience: "menedzer",
     relatedTopics: [],
-    source: "Ustawa o VAT"
+    source: "Ustawa o VAT",
+    effectiveFrom: "2026-02-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'ustawa',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_026",
@@ -608,7 +700,12 @@ export const FAQ_DATABASE: FAQItem[] = [
     difficulty: "beginner",
     audience: "ksiegowy",
     relatedTopics: [],
-    source: "Rozporządzenie MF"
+    source: "Rozporządzenie MF",
+    effectiveFrom: "2025-12-01",
+    lastReviewedAt: "2026-03-06",
+    legalSourceType: 'rozporządzenie',
+    riskLevel: 'legal_mandatory',
+    verifiedBy: 'human'
   },
   {
     id: "FAQ_EXT_027",
@@ -622,6 +719,9 @@ export const FAQ_DATABASE: FAQItem[] = [
     relatedTopics: ["FAQ_1_001"],
     source: "Rozporządzenie MF"
   },
+
+  // --- PROCESY BIURA RACHUNKOWEGO (kuratorowane) ---
+  ...FAQ_BR_PROCESY,
 
   // --- WYGENEROWANE Z OFICJALNYCH DOKUMENTÓW MF (2546 wpisów z Gemini AI) ---
   ...FAQ_GENERATED_KSEF,
