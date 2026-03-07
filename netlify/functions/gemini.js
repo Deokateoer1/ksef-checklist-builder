@@ -21,7 +21,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Nieprawidłowe JSON' }) };
   }
 
-  const { prompt, model = 'gemini-2.0-flash', config = {} } = body;
+  const { prompt, model = 'gemini-3-flash-preview', config = {} } = body;
   if (!prompt) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Brak pola prompt' }) };
   }

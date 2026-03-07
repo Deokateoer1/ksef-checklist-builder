@@ -11,7 +11,7 @@
  * @module faqSearch
  */
 
-import { FAQ_DATABASE, FAQItem } from '../data/faqDatabase';
+import { FAQ_DATABASE, FAQItem, FAQAudience } from '../data/faqDatabase';
 
 // ═══════════════════════════════════════════════════════════
 // Interfejsy
@@ -61,6 +61,15 @@ const CONFIG = {
 
   /** Mnożnik dla ręcznie tworzonych FAQ (FAQ_*, FAQ_EXT_*) vs generowanych (GEN_*) */
   CURATED_BOOST: 1.12,
+
+  /** Governance layer — boosty i kary za meta-pola FAQItem */
+  WEIGHTS_GOVERNANCE: {
+    VERIFIED_HUMAN_BOOST:        10,  // verifiedBy === 'human'
+    INFO_ONLY_PENALTY:           -8,  // riskLevel === 'info_only'
+    RISK_LEGAL_MANDATORY_BOOST:   6,  // riskLevel === 'legal_mandatory'
+    AUDIENCE_EXACT_BOOST:         8,  // audience === preferredAudience
+    AUDIENCE_UNIVERSAL_BOOST:     3,  // audience === 'wszyscy' (pasuje wszystkim)
+  },
 
   /** Próg: jeśli kod techniczny jest zbyt powszechny, traktuj go jako zwykły token */
   COMMON_CODE_DAMPING: 0.15,
@@ -333,8 +342,13 @@ function getCodeFrequency(code: string): number {
 
 /**
  * Oblicza score danego wpisu FAQ względem zapytania.
+ * @param preferredAudience — opcjonalna rola użytkownika (boost za dopasowanie audience)
  */
-export function calculateScore(query: TokenizedQuery, item: FAQItem): SearchResult {
+export function calculateScore(
+  query: TokenizedQuery,
+  item: FAQItem,
+  preferredAudience?: FAQAudience,
+): SearchResult {
   let score = 0;
   const matchedOn: SearchResult['matchedOn'] = [];
 
@@ -470,6 +484,25 @@ export function calculateScore(query: TokenizedQuery, item: FAQItem): SearchResu
     score *= CONFIG.CURATED_BOOST;
   }
 
+  // ── FAZA 7: Governance layer — meta-pola (verifiedBy, riskLevel, audience) ──
+  const G = CONFIG.WEIGHTS_GOVERNANCE;
+  if (item.verifiedBy === 'human') {
+    score += G.VERIFIED_HUMAN_BOOST;
+  }
+  if (item.riskLevel === 'info_only') {
+    score += G.INFO_ONLY_PENALTY;          // ujemna wartość
+  } else if (item.riskLevel === 'legal_mandatory') {
+    score += G.RISK_LEGAL_MANDATORY_BOOST;
+  }
+  if (preferredAudience) {
+    if (item.audience === preferredAudience) {
+      score += G.AUDIENCE_EXACT_BOOST;
+    } else if (item.audience === 'wszyscy') {
+      score += G.AUDIENCE_UNIVERSAL_BOOST;
+    }
+    // audience nieodpowiednie dla roli → brak boostu (neutralne)
+  }
+
   return { item, score: Math.round(score * 100) / 100, matchedOn };
 }
 
@@ -479,8 +512,12 @@ export function calculateScore(query: TokenizedQuery, item: FAQItem): SearchResu
 
 /**
  * Zwraca Top-K wyników powyżej progu.
+ * @param options.preferredAudience — opcjonalna rola; boost za audience match
  */
-export function searchFAQAdvanced(query: string): SearchResult[] {
+export function searchFAQAdvanced(
+  query: string,
+  options?: { preferredAudience?: FAQAudience },
+): SearchResult[] {
   const tokenized = tokenizeQuery(query);
 
   if (tokenized.tokens.length === 0 && tokenized.technicalCodes.length === 0 && tokenized.errorCodes.length === 0) {
@@ -488,7 +525,7 @@ export function searchFAQAdvanced(query: string): SearchResult[] {
   }
 
   const scored = FAQ_DATABASE
-    .map(item => calculateScore(tokenized, item))
+    .map(item => calculateScore(tokenized, item, options?.preferredAudience))
     .filter(r => r.score >= CONFIG.MIN_SCORE_THRESHOLD);
 
   scored.sort((a, b) => b.score - a.score);
@@ -526,7 +563,7 @@ export function searchFAQ(query: string): string {
 // Formatowanie odpowiedzi
 // ═══════════════════════════════════════════════════════════
 
-function formatSingle(r: SearchResult): string {
+export function formatSingle(r: SearchResult): string {
   return [
     `\ud83d\udccc ${r.item.question}`,
     '',
@@ -536,7 +573,7 @@ function formatSingle(r: SearchResult): string {
   ].join('\n');
 }
 
-function formatMultiple(results: SearchResult[]): string {
+export function formatMultiple(results: SearchResult[]): string {
   const icons = ['\ud83e\udd47', '\ud83e\udd48', '\ud83e\udd49'];
   const blocks: string[] = [`\ud83d\udd0d Znalaz\u0142em ${results.length} pasuj\u0105ce odpowiedzi:\n`];
 

@@ -31,7 +31,7 @@ const Main: React.FC = () => {
   }, [isDarkMode]);
 
   const handleLogoClick = () => {
-    setView('single');
+    window.location.href = window.location.origin + window.location.pathname;
   };
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);

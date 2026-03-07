@@ -1,5 +1,5 @@
 import { ChecklistTask, UserProfile, BulkChecklistMap, TaskSection } from "../types";
-import { searchFAQAdvanced } from "./faqSearch";
+import { searchFAQAdvanced, SearchResult } from "./faqSearch";
 
 // ─────────────────────────────────────────────────────────────
 // Model
@@ -130,13 +130,24 @@ function buildKnowledgeBase(): string {
 
     for (const query of queries) {
       const results = searchFAQAdvanced(query);
-      for (const r of results.slice(0, 2)) {
+
+      // ── Priorytet: human + FAQ_BR_* najpierw, potem auto ──────────────────
+      const prioritized = [...results].sort((a: SearchResult, b: SearchResult) => {
+        const rank = (r: SearchResult) =>
+          (r.item.verifiedBy === 'human' ? 2 : 0) +
+          (r.item.id.startsWith('FAQ_BR_') ? 1 : 0);
+        return rank(b) - rank(a);
+      });
+
+      for (const r of prioritized.slice(0, 2)) {
         if (!seen.has(r.item.id) && pairs.length < 4) {
           seen.add(r.item.id);
           const ans = r.item.answer.length > 200
             ? r.item.answer.slice(0, 197) + '...'
             : r.item.answer;
-          pairs.push(`P: ${r.item.question}\nA: ${ans}`);
+          // Oznacz źródło aby model wiedział o jakości danych
+          const verifiedMark = r.item.verifiedBy === 'human' ? ' [zweryfikowano]' : '';
+          pairs.push(`P: ${r.item.question}\nA: ${ans}${verifiedMark}`);
         }
       }
     }

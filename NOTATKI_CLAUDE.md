@@ -7,6 +7,7 @@
 ## ✅ Co zostało zrobione (ostatnia sesja)
 
 ### 1. `services/faqSearch.ts` — pełny rewrite silnika wyszukiwania
+
 - **Problem**: 20/28 pytań offline chatu dawało złe wyniki
 - **Fix**:
   - Lata (1900–2099) nie są już traktowane jako kody błędów
@@ -18,7 +19,8 @@
 - **Wynik**: **27/27 testów zaliczonych**
 
 ### 2. `services/geminiService.ts` — upgrade + RAG injection
-- Zmiana modelu: `gemini-3-pro-preview` (checklista) + `gemini-3-flash-preview` (chat)
+
+- Zmiana modelu: `gemini-3-flash-preview` (checklista) + `gemini-3-flash-preview` (chat) - MA BYC JEDEN MODEL 3-flash-prEVIEW
 - RAG: `buildKnowledgeBase()` — dla każdej z 11 sekcji pobiera top-2 FAQ z faqSearch
 - Naprawiony `KSEF_CONTEXT`:
   - 21133 = NIEZGODNOŚĆ ZE SCHEMĄ FA(3) (NIE błąd NIP!)
@@ -27,6 +29,7 @@
 - Prompt wymaga: min. 1 zadanie critical na sekcję, FA(3)/QR/Offline24/Podmiot3
 
 ### 3. `components/TaskItem.tsx` — uproszczenie do "prawdziwej checklisty"
+
 - Usunięto: watermark (numer 8rem w tle), dependencies, scale/ring/pulse efekty
 - Opis zadania: domyślnie ukryty, otwierany chevronem ▼
 - Lewy niebieski pasek = "następne zadanie" (zamiast całego podświetlenia)
@@ -34,6 +37,7 @@
 - Layout: `☐ 01 [Tytuł..................] [CRITICAL] 🤖 2h D+14 ✏️ ▼`
 
 ### 4. `components/FAQChatbot.tsx` — drobne UX
+
 - Suggested questions chips przy starcie (6 gotowych pytań)
 - ESC zamyka chatbot
 - Pogrubienie `**tekstu**` w odpowiedziach bota
@@ -43,6 +47,7 @@
 ## 🔧 Co jeszcze można zrobić w checkliście
 
 ### Priorytet WYSOKI
+
 1. **Export do PDF** — brakuje możliwości pobrania/wydrukowania checklisty
    - Biblioteka: `jsPDF` + `html2canvas` lub CSS `@media print`
    - Przydatne dla klientów biur rachunkowych
@@ -59,17 +64,19 @@
    - Progress steps (Krok 1/3: profil → 2/3: analiza → 3/3: checklista)
 
 ### Priorytet ŚREDNI
+
 4. **Filtry w checkliście** — filtrowanie po sekcji, priorytecie, "tylko automatable"
-5. **Progress ring / pasek postępu** — wizualny procent ukończenia (jest tekst, brak grafikę)
-6. **Mobile RWD** — sprawdzić czy layout działa na telefonie (TaskItem jest ciasny)
-7. **"Ulubione" / Gwiazdka** — oznaczanie zadań do szybkiego przeglądu
-8. **Tryb Bulk → porównanie branż** — tabela side-by-side dla biur rachunkowych (jest generowanie, brakuje porównania)
+2. **Progress ring / pasek postępu** — wizualny procent ukończenia (jest tekst, brak grafikę)
+3. **Mobile RWD** — sprawdzić czy layout działa na telefonie (TaskItem jest ciasny)
+4. **"Ulubione" / Gwiazdka** — oznaczanie zadań do szybkiego przeglądu
+5. **Tryb Bulk → porównanie branż** — tabela side-by-side dla biur rachunkowych (jest generowanie, brakuje porównania)
 
 ### Priorytet NISKI
+
 9. **Drag & drop reordering** — ręczne przestawianie kolejności zadań
-10. **Dark mode toggle** — (jest wsparcie klas dark:, brak przełącznika w UI)
-11. **Onboarding tooltip** — pierwszy raz? Mini-tour po funkcjach
-12. **Search w checkliście** — fulltext search po tytułach/opisach zadań
+2. **Dark mode toggle** — (jest wsparcie klas dark:, brak przełącznika w UI)
+3. **Onboarding tooltip** — pierwszy raz? Mini-tour po funkcjach
+4. **Search w checkliście** — fulltext search po tytułach/opisach zadań
 
 ---
 

@@ -35,3 +35,4 @@ temp_*.py
 .env.local
 .env.production.local
 # .env.production zostawiamy — nie zawiera sekretów, tylko URL
+.netlify/

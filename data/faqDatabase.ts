@@ -1,6 +1,7 @@
 
 import { FAQ_GENERATED_KSEF } from './faqGeneratedKSeF';
 import { FAQ_BR_PROCESY } from './faq_biura_procesy';
+import { FAQ_BR_JST_GV_LIMITS } from './faq_biura_jst_gv_limits';
 
 export type FAQAudience = 'ksiegowy' | 'IT' | 'menedzer' | 'audytor' | 'wszyscy';
 export type FAQDifficulty = 'beginner' | 'intermediate' | 'advanced' | 'expert';
@@ -719,6 +720,9 @@ export const FAQ_DATABASE: FAQItem[] = [
     relatedTopics: ["FAQ_1_001"],
     source: "Rozporządzenie MF"
   },
+
+  // --- JST/GV, LIMITY, ZAW-FA, MODELE, AWARIE, JPK, BŁĘDY BR (kuratorowane) ---
+  ...FAQ_BR_JST_GV_LIMITS,
 
   // --- PROCESY BIURA RACHUNKOWEGO (kuratorowane) ---
   ...FAQ_BR_PROCESY,

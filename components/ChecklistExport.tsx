@@ -348,13 +348,13 @@ const ChecklistExport: React.FC<ChecklistExportProps> = () => {
   const ReportContent = () => (
     <div
       id="printable-report"
-      className="bg-white text-black font-sans w-full"
-      style={{ minHeight: '297mm', padding: '15mm', boxSizing: 'border-box' }}
+      className="bg-white font-sans w-full"
+      style={{ color: '#2d2d2d', minHeight: '297mm', padding: '15mm', boxSizing: 'border-box' }}
     >
       {/* Nagłówek */}
       <div className="flex justify-between items-start pb-4 mb-6" style={{ borderBottom: '3px solid black' }}>
         <div>
-          <h1 className="text-2xl font-black uppercase tracking-tighter leading-none">PunchlineROI × KSeF 2.0</h1>
+          <h1 className="text-2xl font-semibold uppercase tracking-tighter leading-none">PunchlineROI × KSeF 2.0</h1>
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">{profile?.industry}</p>
         </div>
         <div className="text-right">
@@ -388,7 +388,7 @@ const ChecklistExport: React.FC<ChecklistExportProps> = () => {
           if (sTasks.length === 0) return null;
           return (
             <div key={s} style={{ pageBreakInside: 'avoid' }}>
-              <h4 className="text-xs font-black uppercase tracking-widest mb-3" style={{ borderLeft: '4px solid black', paddingLeft: '12px' }}>
+              <h4 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ borderLeft: '4px solid #444', paddingLeft: '12px' }}>
                 {s}
               </h4>
               <div className="space-y-3">
@@ -403,12 +403,12 @@ const ChecklistExport: React.FC<ChecklistExportProps> = () => {
                           flexShrink: 0, marginTop: 2,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                         }}>
-                          {t.completed && <span style={{ fontSize: 9, fontWeight: 900 }}>✓</span>}
+                          {t.completed && <span style={{ fontSize: 9, fontWeight: 600 }}>✓</span>}
                         </div>
 
                         <div className="flex-grow">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="text-sm font-black leading-snug">{t.title}</span>
+                            <span className="text-sm font-semibold leading-snug">{t.title}</span>
                             <span style={{
                               fontSize: 9, fontWeight: 900, padding: '2px 6px',
                               borderRadius: 4, flexShrink: 0,

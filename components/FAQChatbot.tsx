@@ -1,13 +1,53 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { searchFAQ } from '../services/faqSearch';
+import { searchFAQAdvanced, formatSingle, formatMultiple } from '../services/faqSearch';
 import { askGeminiKSeF } from '../services/geminiService';
 import { useChecklist } from '../context/ChecklistContext';
+import type { FAQAudience } from '../data/faqDatabase';
+
+// ── Governance meta dla offline-FAQ odpowiedzi ────────────────────────────────
+interface FAQMeta {
+  source: string;
+  legalSourceType?: 'ustawa' | 'rozporządzenie' | 'MF_objaśnienia' | 'interpretacja' | 'praktyka';
+  riskLevel?: 'legal_mandatory' | 'recommended' | 'info_only';
+  verifiedBy?: 'human' | 'auto';
+}
 
 interface Message {
   role: 'user' | 'bot' | 'system';
   text: string;
+  /** Governance badges — wypełniane dla odpowiedzi offline FAQ */
+  faqMeta?: FAQMeta[];
 }
+
+// ── Helpery do renderowania governance badges ─────────────────────────────────
+function riskBadgeStyle(rl: FAQMeta['riskLevel']): string {
+  if (rl === 'legal_mandatory') return 'bg-red-100 text-red-700 border-red-200';
+  if (rl === 'recommended')     return 'bg-green-100 text-green-700 border-green-200';
+  return 'bg-slate-100 text-slate-500 border-slate-200';
+}
+function riskBadgeLabel(rl: FAQMeta['riskLevel']): string {
+  if (rl === 'legal_mandatory') return '⚖️ wymóg prawny';
+  if (rl === 'recommended')     return '✅ rekomendacja';
+  return 'ℹ️ informacja poglądowa';
+}
+function legalSrcLabel(lst: FAQMeta['legalSourceType']): string {
+  if (lst === 'ustawa')         return '📜 Ustawa';
+  if (lst === 'rozporządzenie') return '📋 Rozp. MF';
+  if (lst === 'MF_objaśnienia') return '📖 Objaśnienia MF';
+  if (lst === 'interpretacja')  return '💬 Interpretacja';
+  if (lst === 'praktyka')       return '🔧 Praktyka';
+  return '';
+}
+
+// ── Mapowanie roli → label w UI ───────────────────────────────────────────────
+const ROLE_OPTIONS: { value: FAQAudience | 'wszyscy'; label: string }[] = [
+  { value: 'wszyscy',  label: 'Wszyscy' },
+  { value: 'menedzer', label: '👔 Menedżer' },
+  { value: 'ksiegowy', label: '📊 Księgowy' },
+  { value: 'IT',       label: '💻 IT' },
+  { value: 'audytor',  label: '🔍 Audytor' },
+];
 
 interface FAQChatbotProps {
   onClose: () => void;
@@ -61,6 +101,9 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
   const [input, setInput] = useState('');
   const [isDeepSearch, setIsDeepSearch] = useState<boolean>(() => localStorage.getItem('ksef_chat_aiMode') === 'true');
   const [aiMode, setAiMode] = useState<'technical' | 'business'>(() => (localStorage.getItem('ksef_chat_subMode') as 'technical' | 'business') || 'technical');
+  const [userRole, setUserRole] = useState<FAQAudience | 'wszyscy'>(() =>
+    (localStorage.getItem('ksef_chat_role') as FAQAudience | 'wszyscy') || 'wszyscy'
+  );
   const [isMinimized, setIsMinimized] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
@@ -93,6 +136,11 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
     localStorage.setItem('ksef_chat_subMode', aiMode);
   }, [aiMode]);
 
+  // Persist role (audience filter) to localStorage
+  useEffect(() => {
+    localStorage.setItem('ksef_chat_role', userRole);
+  }, [userRole]);
+
   const sendMessage = async (text: string) => {
     if (!text.trim() || isTyping) return;
 
@@ -102,13 +150,33 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
 
     try {
       if (isDeepSearch) {
-        const aiAnswer = await askGeminiKSeF(text, profile, aiMode);
+        const roleCtx = userRole !== 'wszyscy' ? `[Rola: ${userRole}] ` : '';
+        const aiAnswer = await askGeminiKSeF(`${roleCtx}${text}`, profile, aiMode);
         setMessages(prev => [...prev, { role: 'bot', text: aiAnswer }]);
       } else {
-        const answer = searchFAQ(text);
-        setMessages(prev => [...prev, { role: 'bot', text: answer }]);
+        const audience = userRole !== 'wszyscy' ? userRole : undefined;
+        const results = searchFAQAdvanced(text, { preferredAudience: audience });
+        const answer =
+          results.length > 1
+            ? formatMultiple(results)
+            : results.length === 1
+            ? formatSingle(results[0])
+            : 'Nie znalazłem odpowiedzi w bazie offline KSeF.';
 
-        if (answer.includes('nie znalazłem w bazie offline')) {
+        const faqMeta: FAQMeta[] = results.map(r => ({
+          source: r.item.source,
+          legalSourceType: r.item.legalSourceType,
+          riskLevel: r.item.riskLevel,
+          verifiedBy: r.item.verifiedBy,
+        }));
+
+        setMessages(prev => [...prev, {
+          role: 'bot',
+          text: answer,
+          faqMeta: faqMeta.length > 0 ? faqMeta : undefined,
+        }]);
+
+        if (results.length === 0) {
           setTimeout(() => {
             setMessages(prev => [...prev, { role: 'system', text: "💡 Wskazówka: Włącz 'Analityka Gemini 3.0', aby zapytać o to sztuczną inteligencję." }]);
           }, 1000);
@@ -247,6 +315,24 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
             </button>
           </div>
         )}
+
+        {/* Role selector — filtruje offline search i informuje AI o kontekście roli */}
+        <div className="flex gap-1.5 flex-wrap pt-0.5">
+          {ROLE_OPTIONS.map(opt => (
+            <button
+              key={opt.value}
+              onClick={() => setUserRole(opt.value as FAQAudience | 'wszyscy')}
+              title={`Filtruj odpowiedzi dla roli: ${opt.label}`}
+              className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
+                userRole === opt.value
+                  ? 'bg-slate-900 dark:bg-blue-600 text-white shadow-sm'
+                  : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-600'
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
       </div>}
 
       {/* Messages Area — ukryty gdy zminimalizowany */}
@@ -265,6 +351,38 @@ const FAQChatbot: React.FC<FAQChatbotProps> = ({ onClose }) => {
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-50 border border-slate-200 dark:border-slate-700 rounded-tl-none'
               }`}>
                 <div>{renderText(m.text)}</div>
+                {/* Governance badges — widoczne tylko w odpowiedziach offline FAQ */}
+                {m.faqMeta && m.faqMeta.length > 0 && (() => {
+                  const uniqueRisks = [...new Set(m.faqMeta!.map(x => x.riskLevel).filter((v): v is NonNullable<FAQMeta['riskLevel']> => !!v))];
+                  const uniqueSrcs  = [...new Set(m.faqMeta!.map(x => x.legalSourceType).filter((v): v is NonNullable<FAQMeta['legalSourceType']> => !!v))];
+                  const hasHuman    = m.faqMeta!.some(x => x.verifiedBy === 'human');
+                  const hasAutoOnly = m.faqMeta!.some(x => x.verifiedBy === 'auto') && !hasHuman;
+                  if (!uniqueRisks.length && !uniqueSrcs.length && !hasHuman && !hasAutoOnly) return null;
+                  return (
+                    <div className="flex flex-wrap gap-1 mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                      {uniqueRisks.map(rl => (
+                        <span key={rl} className={`text-[9px] font-black px-2 py-0.5 rounded-md border ${riskBadgeStyle(rl)}`}>
+                          {riskBadgeLabel(rl)}
+                        </span>
+                      ))}
+                      {uniqueSrcs.map(lst => (
+                        <span key={lst} className="text-[9px] font-bold px-2 py-0.5 bg-blue-50 text-blue-600 border border-blue-100 rounded-md">
+                          {legalSrcLabel(lst)}
+                        </span>
+                      ))}
+                      {hasHuman && (
+                        <span className="text-[9px] font-black px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-md">
+                          ✓ Zweryfikowano
+                        </span>
+                      )}
+                      {hasAutoOnly && (
+                        <span title="Wygenerowano automatycznie — zweryfikuj źródło" className="text-[9px] font-bold px-2 py-0.5 bg-amber-50 text-amber-600 border border-amber-100 rounded-md cursor-help">
+                          ⚡ Auto
+                        </span>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             )}
           </div>

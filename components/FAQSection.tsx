@@ -56,6 +56,33 @@ function countHits(tokens: string[], normalizedText: string): number {
   return tokens.filter(t => normalizedText.includes(t)).length;
 }
 
+// ─── Governance badge helpers ─────────────────────────────────────────────────
+
+type RiskLevel = 'legal_mandatory' | 'recommended' | 'info_only';
+type LegalSourceType = 'ustawa' | 'rozporządzenie' | 'MF_objaśnienia' | 'interpretacja' | 'praktyka';
+
+function riskLevelLabel(rl: RiskLevel): string {
+  if (rl === 'legal_mandatory') return '⚖️ Wymóg prawny';
+  if (rl === 'recommended')     return '✅ Rekomendacja';
+  return 'ℹ️ Informacja poglądowa';
+}
+
+function riskLevelClass(rl: RiskLevel): string {
+  if (rl === 'legal_mandatory')
+    return 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800';
+  if (rl === 'recommended')
+    return 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800';
+  return 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700';
+}
+
+function legalSourceLabel(lst: LegalSourceType): string {
+  if (lst === 'ustawa')          return '📜 Ustawa';
+  if (lst === 'rozporządzenie')  return '📋 Rozporządzenie MF';
+  if (lst === 'MF_objaśnienia')  return '📖 Objaśnienia MF';
+  if (lst === 'interpretacja')   return '💬 Interpretacja';
+  return '🔧 Praktyka';
+}
+
 // ─── Komponent ─────────────────────────────────────────────────────────────────
 
 const FAQSection: React.FC = () => {
@@ -233,6 +260,35 @@ const FAQSection: React.FC = () => {
                               {item.source === 'mf.gov.pl' && <span className="w-2 h-2 bg-blue-500 rounded-full" title="Oficjalne"></span>}
                           </div>
                       </div>
+
+                      {/* Governance badges — riskLevel / legalSourceType / verifiedBy */}
+                      {(item.riskLevel || item.legalSourceType || item.verifiedBy) && (
+                        <div className="flex flex-wrap gap-1.5 mt-2 px-1">
+                          {item.riskLevel && (
+                            <span className={`text-[9px] font-black px-2 py-0.5 rounded-md border ${riskLevelClass(item.riskLevel as RiskLevel)}`}>
+                              {riskLevelLabel(item.riskLevel as RiskLevel)}
+                            </span>
+                          )}
+                          {item.legalSourceType && (
+                            <span className="text-[9px] font-bold px-2 py-0.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 rounded-md">
+                              {legalSourceLabel(item.legalSourceType as LegalSourceType)}
+                            </span>
+                          )}
+                          {item.verifiedBy === 'human' && (
+                            <span className="text-[9px] font-bold px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded-md">
+                              ✓ Zweryfikowano
+                            </span>
+                          )}
+                          {item.verifiedBy === 'auto' && (
+                            <span
+                              title="Wygenerowano automatycznie na podstawie dokumentów MF – nie zastępuje porady doradcy podatkowego"
+                              className="text-[9px] font-bold px-2 py-0.5 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 rounded-md cursor-help"
+                            >
+                              ⚡ Automatyczne
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
