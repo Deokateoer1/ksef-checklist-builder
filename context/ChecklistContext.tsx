@@ -150,7 +150,13 @@ export const ChecklistProvider: React.FC<{ children: ReactNode }> = ({ children 
       const saved = localStorage.getItem('ksef_state_v3');
       if (saved) {
         try {
-          dispatch({ type: 'LOAD_PERSISTED_STATE', payload: JSON.parse(saved) });
+          const parsed = JSON.parse(saved);
+          // Przywróć tylko profil użytkownika (pre-fill formularza).
+          // Zadania NIE są ładowane — użytkownik zawsze startuje od generatora.
+          dispatch({
+            type: 'LOAD_PERSISTED_STATE',
+            payload: { ...parsed, tasks: [], bulkTasks: null, clients: {}, activeClientId: null },
+          });
         } catch (e) { console.error("Błąd ładowania LocalStorage"); }
       }
     };
