@@ -11,9 +11,8 @@ const MODEL_CHAT = 'gemini-3-flash-preview';       // Gemini 3.0 Flash — czat
 // Gemini API — bezpośrednie wywołanie (brak limitu timeoutu)
 // ─────────────────────────────────────────────────────────────
 
-// VITE_GEMINI_API_KEY — klucz dostępny w bundlu (ustawiony w Netlify env)
-// Fallback: proxy przez BACKEND_URL (dev / lokalnie)
-const DIRECT_API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
+
+// Używaj zawsze proxy przez backend (/api/gemini)
 const BACKEND_URL = import.meta.env.VITE_ROBOT_API_URL || 'http://localhost:8000';
 
 async function callGeminiProxy(
@@ -21,41 +20,7 @@ async function callGeminiProxy(
   model: string,
   config?: { responseMimeType?: string; temperature?: number; topP?: number; systemInstruction?: string }
 ): Promise<string> {
-
-  // ── Ścieżka bezpośrednia (produkcja) — brak limitu 10s Netlify Free ──
-  if (DIRECT_API_KEY) {
-    const geminiBody: Record<string, unknown> = {
-      contents: [{ parts: [{ text: prompt }] }],
-    };
-    if (config?.systemInstruction) {
-      geminiBody.systemInstruction = { parts: [{ text: config.systemInstruction }] };
-    }
-    if (config?.responseMimeType || config?.temperature !== undefined || config?.topP !== undefined) {
-      const gc: Record<string, unknown> = {};
-      if (config?.responseMimeType) gc.responseMimeType = config.responseMimeType;
-      if (config?.temperature !== undefined) gc.temperature = config.temperature;
-      if (config?.topP !== undefined) gc.topP = config.topP;
-      geminiBody.generationConfig = gc;
-    }
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${DIRECT_API_KEY}`;
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(geminiBody),
-    });
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      const msg = (data as Record<string, Record<string, string>>)?.error?.message || `HTTP ${res.status}`;
-      if (res.status === 401 || res.status === 403) throw new Error('Błąd klucza API. Sprawdź zmienną VITE_GEMINI_API_KEY.');
-      if (res.status === 404) throw new Error('Model AI niedostępny. Sprawdź nazwę modelu.');
-      throw new Error(`Gemini API error ${res.status}: ${msg}`);
-    }
-    const data = await res.json();
-    return (data as { candidates: { content: { parts: { text: string }[] } }[] })
-      ?.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
-  }
-
-  // ── Fallback: proxy przez Netlify Function / backend (dev) ──
+  // Zawsze proxy przez backend (Netlify Function lub lokalny backend)
   const res = await fetch(`${BACKEND_URL}/api/gemini`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -64,7 +29,7 @@ async function callGeminiProxy(
 
   if (!res.ok) {
     const err = await res.text().catch(() => res.statusText);
-    if (res.status === 401 || res.status === 403) throw new Error('Błąd klucza API. Sprawdź zmienną API_KEY.');
+    if (res.status === 401 || res.status === 403) throw new Error('Błąd klucza API. Sprawdź konfigurację backendu.');
     if (res.status === 404) throw new Error('Model AI niedostępny. Sprawdź nazwę modelu w konfiguracji.');
     throw new Error(`Błąd backendu ${res.status}: ${err}`);
   }
